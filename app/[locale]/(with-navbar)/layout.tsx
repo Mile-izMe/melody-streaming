@@ -1,5 +1,5 @@
+import { NavBar } from "@/components";
 import AudioPlayer from "@/components/layout/AudioPlayer";
-import NavBar from "@/components/layout/NavBar";
 
 export default function WithNavbarLayout({
   children,

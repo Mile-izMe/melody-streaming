@@ -1,19 +1,11 @@
 "use client";
 import { User } from "@/types";
-import {
-  AudioWaveform,
-  Headphones,
-  KeyRound,
-  Lock,
-  Mail,
-  Mic2,
-  ShieldCheck,
-  Sparkles,
-  UserIcon,
-  X,
-} from "lucide-react";
-import { useRouter } from "next/navigation";
+import { KeyRound, Lock, Mail, UserIcon } from "lucide-react";
 import React, { useState } from "react";
+import {
+  Introduction,
+  NavigationBack,
+} from "@/components/features/authentication";
 
 interface AuthenticationProps {
   onLoginSuccess: (user: User) => void;
@@ -39,7 +31,6 @@ const PRESET_AVATARS = [
 ];
 
 function AuthenticationPage({ onLoginSuccess }: AuthenticationProps) {
-  const router = useRouter();
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -69,81 +60,11 @@ function AuthenticationPage({ onLoginSuccess }: AuthenticationProps) {
 
       {/* Modal Container */}
       <div className="relative w-full max-w-4xl bg-stone-900/90 border border-amber-950/60 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
-        {/* Decorative Ambient Gold Glow */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-800/10 rounded-full blur-3xl pointer-events-none" />
-
-        {/* Close Button */}
-        <button
-          onClick={() => router.push("/")}
-          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-stone-950/40 border border-stone-800 text-stone-400 hover:text-amber-400 hover:border-amber-900/50 transition-all duration-300"
-        >
-          <X className="w-4 h-4" />
-        </button>
+        {/* Navigation Back Button */}
+        <NavigationBack />
 
         {/* Left Side */}
-        <div className="w-full md:w-[45%] bg-stone-950/65 p-6 md:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-amber-950/30 overflow-y-auto">
-          <div>
-            {/* Tagline */}
-            <div className="flex items-center space-x-2 text-amber-500 mb-4">
-              <Headphones className="w-4 h-4" />
-              <span className="text-xs font-mono tracking-widest uppercase">
-                Premium Audio Experience
-              </span>
-            </div>
-
-            {/* Title */}
-            <h3 className="text-xl font-sans font-medium text-stone-200 tracking-tight leading-snug">
-              Melody Stream <br />
-              <span className="text-amber-500">Secure Backend Connect</span>
-            </h3>
-
-            {/* Description */}
-            <p className="text-stone-400 text-xs mt-3 leading-relaxed">
-              Log in to unlock your personalized music sanctuary. Save your
-              favorite tracks, follow visionary artists, and immerse yourself in
-              an endless universe of sound.
-            </p>
-
-            {/* Feature List */}
-            <div className="mt-6 space-y-3.5">
-              <div className="flex items-start space-x-2 text-stone-400 text-xs">
-                <AudioWaveform className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-stone-300">Hi-Res Audio:</strong>{" "}
-                  Experience studio-quality (Lossless) streaming that preserves
-                  every detail and raw emotion of the original track.
-                </div>
-              </div>
-              <div className="flex items-start space-x-2 text-stone-400 text-xs">
-                <Mic2 className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-stone-300">For Artists:</strong> The
-                  ultimate platform to upload your masterpieces, showcase your
-                  unique style, and connect directly with your fanbase.
-                </div>
-              </div>
-              <div className="flex items-start space-x-2 text-stone-400 text-xs">
-                <Sparkles className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-stone-300">Smart Discovery:</strong>{" "}
-                  Our AI analyzes your listening habits to curate a daily
-                  soundtrack perfectly tailored to your unique taste.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Info Box */}
-          <div className="mt-8 pt-4 border-t border-stone-900">
-            <div className="w-full flex items-center justify-between text-left text-xs bg-amber-950/20 border border-amber-950/60 rounded-lg p-3 text-amber-400">
-              <span className="font-medium flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4" />
-                Your personal data is strictly secured
-              </span>
-            </div>
-          </div>
-        </div>
+        <Introduction />
 
         {/* Right Side: Animated Input Fields */}
         <div className="w-full md:w-[55%] p-6 md:p-10 flex flex-col justify-center overflow-y-auto">
@@ -160,7 +81,7 @@ function AuthenticationPage({ onLoginSuccess }: AuthenticationProps) {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Username */}
+            {/* Email */}
             <div className="space-y-1.5 flex flex-col">
               <label className="text-xs text-stone-400 font-medium">
                 Tên tài khoản / Username

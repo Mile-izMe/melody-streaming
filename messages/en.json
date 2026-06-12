@@ -1,0 +1,31 @@
+{
+  "navbar": {
+    "explore": "Explore",
+    "library": "Library",
+    "recent": "Recent",
+    "upload": "Upload",
+    "login": "Sign In",
+    "logout": "Sign Out"
+  },
+  "home": {
+    "trending": "Trending",
+    "newest": "Latest"
+  },
+  "authentication": {
+    "introduction": {
+      "tagline": "Premium Audio Experience",
+      "title_main": "Melody Stream",
+      "title_accent": "Secure Backend Connect",
+      "description": "Log in to unlock your personalized music sanctuary. Save your favorite tracks, follow visionary artists, and immerse yourself in an endless universe of sound.",
+      "features": {
+        "hires_audio_title": "Hi-Res Audio:",
+        "hires_audio_description": "Experience studio-quality (Lossless) streaming that preserves every detail and raw emotion of the original track.",
+        "for_artists_title": "For Artists:",
+        "for_artists_description": "The ultimate platform to upload your masterpieces, showcase your unique style, and connect directly with your fanbase.",
+        "smart_discovery_title": "Smart Discovery:",
+        "smart_discovery_description": "Our AI analyzes your listening habits to curate a daily soundtrack perfectly tailored to your unique taste."
+      },
+      "security_notice": "Your personal data is strictly secured"
+    }
+  }
+}

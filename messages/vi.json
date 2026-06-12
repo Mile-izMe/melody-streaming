@@ -1,0 +1,31 @@
+{
+  "navbar": {
+    "explore": "Khám Phá",
+    "library": "Thư Viện",
+    "recent": "Gần Đây",
+    "upload": "Đăng Nhạc",
+    "login": "Đăng Nhập",
+    "logout": "Đăng Xuất"
+  },
+  "home": {
+    "trending": "Thịnh Hành",
+    "newest": "Mới Nhất"
+  },
+  "authentication": {
+    "introduction": {
+      "tagline": "Trải Nghiệm Âm Thanh Cao Cấp",
+      "title_main": "Melody Stream",
+      "title_accent": "Kết Nối Backend Bảo Mật",
+      "description": "Đăng nhập để mở khóa kho âm nhạc cá nhân của bạn. Lưu lại những bài hát yêu thích, theo dõi các nghệ sĩ tài năng, và đắm mình trong một vũ trụ âm thanh vô tận.",
+      "features": {
+        "hires_audio_title": "Âm Thanh Hi-Res:",
+        "hires_audio_description": "Trải nghiệm phát trực tuyến chất lượng studio (Lossless) giữ nguyên mọi chi tiết và cảm xúc thô của bản nhạc gốc.",
+        "for_artists_title": "Cho Nghệ Sĩ:",
+        "for_artists_description": "Nền tảng tuyệt vời để tải lên những kiệt tác của bạn, thể hiện phong cách độc đáo của mình, và kết nối trực tiếp với người hâm mộ.",
+        "smart_discovery_title": "Khám Phá Thông Minh:",
+        "smart_discovery_description": "AI của chúng tôi phân tích thói quen nghe nhạc của bạn để tạo ra bảng nhạc hàng ngày hoàn toàn phù hợp với sở thích độc đáo của bạn."
+      },
+      "security_notice": "Dữ liệu cá nhân của bạn được bảo vệ an toàn"
+    }
+  }
+}

@@ -11,19 +11,21 @@ import {
   Sparkles,
   Upload,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-const NAV_LINKS = [
-  { href: "/", label: "Khám Phá", icon: Compass },
-  { href: "/playlists", label: "Thư Viện", icon: FolderHeart },
-  { href: "/history", label: "Gần Đây", icon: History },
-];
-
 export default function NavBar() {
+  const t = useTranslations("navbar");
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout, zenMode, setZenMode } = useAuthStore();
+
+  const NAV_LINKS = [
+    { href: "/", label: t("explore"), icon: Compass },
+    { href: "/playlists", label: t("library"), icon: FolderHeart },
+    { href: "/history", label: t("recent"), icon: History },
+  ];
 
   if (pathname === "/zen") return null;
 
@@ -81,7 +83,7 @@ export default function NavBar() {
               className={navCls("/upload") + " cursor-pointer"}
             >
               <Upload className="w-4 h-4" />
-              <span>Đăng Nhạc</span>
+              <span>{t("upload")}</span>
               {!user.isLoggedIn && (
                 <span className="text-[8px] px-1.5 py-0.5 rounded bg-amber-900/60 text-amber-300 font-mono font-bold leading-none">
                   LOCK
@@ -132,7 +134,7 @@ export default function NavBar() {
                     {user.username}
                   </span>
                   <span className="text-[8px] text-amber-500 font-mono tracking-wider mt-0.5">
-                    ARTIST
+                    {t("artist")}
                   </span>
                 </div>
 
@@ -141,7 +143,7 @@ export default function NavBar() {
                 <button
                   onClick={logout}
                   className="text-stone-500 hover:text-red-400 transition-colors duration-300"
-                  title="Đăng xuất"
+                  title={t("logout")}
                 >
                   <LogOut className="w-3.5 h-3.5" />
                 </button>
@@ -153,7 +155,7 @@ export default function NavBar() {
               >
                 <LogIn className="w-4 h-4 text-stone-100 group-hover:translate-x-0.5 transition-transform duration-300" />
                 <span className="text-xs font-sans font-semibold text-stone-100 tracking-wider">
-                  Đăng Nhập
+                  {t("login")}
                 </span>
                 <span className="absolute inset-0 bg-white/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
               </button>
