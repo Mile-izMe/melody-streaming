@@ -1,4 +1,6 @@
-import { ViewType, User as UserType } from "../../types";
+"use client";
+
+import { useAuthStore } from "@/store/authStore";
 import {
   Compass,
   FolderHeart,
@@ -9,34 +11,39 @@ import {
   Sparkles,
   Upload,
 } from "lucide-react";
-import React from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
-interface NavbarProps {
-  activeView: ViewType;
-  setActiveView: (view: ViewType) => void;
-  user: UserType;
-  onOpenLogin: () => void;
-  onLogout: () => void;
-  zenMode: boolean;
-  setZenMode: (val: boolean) => void;
-}
+const NAV_LINKS = [
+  { href: "/", label: "Khám Phá", icon: Compass },
+  { href: "/playlists", label: "Thư Viện", icon: FolderHeart },
+  { href: "/history", label: "Gần Đây", icon: History },
+];
 
-function NavBar({
-  activeView,
-  setActiveView,
-  user,
-  onOpenLogin,
-  onLogout,
-  zenMode,
-  setZenMode,
-}: NavbarProps) {
+export default function NavBar() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const { user, logout, zenMode, setZenMode } = useAuthStore();
+
+  if (pathname === "/zen") return null;
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  const navCls = (href: string) =>
+    `flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium tracking-wide transition-all duration-300 border ${
+      isActive(href)
+        ? "bg-amber-950/40 text-amber-400 border-amber-900/30"
+        : "text-stone-400 hover:text-amber-300 hover:bg-stone-900/30 border-transparent"
+    }`;
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-40 transition-all duration-500 backdrop-blur-xl bg-stone-950/60 border-b border-amber-950/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo & Luxury Japanese Branding */}
-          <div
-            onClick={() => setActiveView("home")}
+          <Link
+            href="/"
             className="flex items-center space-x-3 cursor-pointer group"
           >
             <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-amber-700 to-amber-950 p-[1px] shadow-lg shadow-amber-950/20 group-hover:shadow-amber-500/10 transition-shadow duration-500">
@@ -52,63 +59,26 @@ function NavBar({
                 MELODY{" "}
                 <span className="text-amber-500 font-medium">STREAM</span>
               </span>
-              <span className="text-[9px] font-mono tracking-[0.3em] text-stone-500 uppercase leading-none">
-                メロディーストリーム
-              </span>
             </div>
-          </div>
+          </Link>
 
           {/* Navigation Links (Minimalist Space Grotesk Style) */}
           <div className="hidden md:flex items-center space-x-1">
-            <button
-              onClick={() => setActiveView("home")}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium tracking-wide transition-all duration-300 ${
-                activeView === "home"
-                  ? "bg-amber-950/40 text-amber-400 border border-amber-900/30"
-                  : "text-stone-400 hover:text-amber-300 hover:bg-stone-900/30 border border-transparent"
-              }`}
-            >
-              <Compass className="w-4 h-4" />
-              <span>Khám Phá</span>
-            </button>
+            {NAV_LINKS.map(({ href, label, icon: Icon }) => (
+              <Link key={href} href={href} className={navCls(href)}>
+                <Icon className="w-4 h-4" />
+                <span>{label}</span>
+              </Link>
+            ))}
 
+            {/* Upload Button - Protected */}
             <button
-              onClick={() => setActiveView("playlists")}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium tracking-wide transition-all duration-300 ${
-                activeView === "playlists"
-                  ? "bg-amber-950/40 text-amber-400 border border-amber-900/30"
-                  : "text-stone-400 hover:text-amber-300 hover:bg-stone-900/30 border border-transparent"
-              }`}
-            >
-              <FolderHeart className="w-4 h-4" />
-              <span>Thư Viện</span>
-            </button>
-
-            <button
-              onClick={() => setActiveView("history")}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium tracking-wide transition-all duration-300 ${
-                activeView === "history"
-                  ? "bg-amber-950/40 text-amber-400 border border-amber-900/30"
-                  : "text-stone-400 hover:text-amber-300 hover:bg-stone-900/30 border border-transparent"
-              }`}
-            >
-              <History className="w-4 h-4" />
-              <span>Gần Đây</span>
-            </button>
-
-            <button
-              onClick={() => {
-                if (user.isLoggedIn) {
-                  setActiveView("upload");
-                } else {
-                  onOpenLogin();
-                }
-              }}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium tracking-wide transition-all duration-300 ${
-                activeView === "upload"
-                  ? "bg-amber-950/50 text-amber-400 border border-amber-900/40"
-                  : "text-stone-400 hover:text-amber-300 hover:bg-stone-950/30 border border-transparent"
-              }`}
+              onClick={() =>
+                user.isLoggedIn
+                  ? router.push("/upload")
+                  : router.push("/authentication")
+              }
+              className={navCls("/upload") + " cursor-pointer"}
             >
               <Upload className="w-4 h-4" />
               <span>Đăng Nhạc</span>
@@ -120,9 +90,9 @@ function NavBar({
             </button>
           </div>
 
-          {/* Action Area: Zen Mode Toggle & User Auth Status */}
+          {/* Right Side */}
           <div className="flex items-center space-x-4">
-            {/* Zen Ambient Immersive Toggle Button */}
+            {/* Zen Toggle */}
             <button
               onClick={() => setZenMode(!zenMode)}
               className={`relative p-2.5 rounded-lg border transition-all duration-500 overflow-hidden group ${
@@ -141,7 +111,7 @@ function NavBar({
               )}
             </button>
 
-            {/* Authentication Triggers & User Card */}
+            {/* Authentication */}
             {user.isLoggedIn ? (
               <div className="flex items-center space-x-3 bg-stone-900/40 border border-amber-950/40 rounded-full py-1.5 pl-2 pr-4 shadow-inner">
                 {user.avatarUrl ? (
@@ -169,7 +139,7 @@ function NavBar({
                 <div className="w-[1px] h-4 bg-stone-800 mx-1" />
 
                 <button
-                  onClick={onLogout}
+                  onClick={logout}
                   className="text-stone-500 hover:text-red-400 transition-colors duration-300"
                   title="Đăng xuất"
                 >
@@ -178,8 +148,8 @@ function NavBar({
               </div>
             ) : (
               <button
-                onClick={onOpenLogin}
-                className="relative flex items-center space-x-2 px-5 py-2.5 rounded-full overflow-hidden transition-all duration-500 bg-gradient-to-r from-amber-700 to-amber-900 hover:from-amber-600 hover:to-amber-800 shadow-md shadow-amber-950/30 group active:scale-95"
+                onClick={() => router.push("/authentication")}
+                className="cursor-pointer relative flex items-center space-x-2 px-5 py-2.5 rounded-full overflow-hidden transition-all duration-500 bg-gradient-to-r from-amber-700 to-amber-900 hover:from-amber-600 hover:to-amber-800 shadow-md shadow-amber-950/30 group active:scale-95"
               >
                 <LogIn className="w-4 h-4 text-stone-100 group-hover:translate-x-0.5 transition-transform duration-300" />
                 <span className="text-xs font-sans font-semibold text-stone-100 tracking-wider">
@@ -194,5 +164,3 @@ function NavBar({
     </nav>
   );
 }
-
-export default NavBar;

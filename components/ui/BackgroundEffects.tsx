@@ -1,3 +1,5 @@
+"use client";
+
 import { useMouseParallax, useParticleCanvas } from "@/hooks";
 import { useRef } from "react";
 
