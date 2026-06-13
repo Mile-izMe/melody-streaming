@@ -76,7 +76,7 @@ function AuthenticationPage({ onLoginSuccess }: AuthenticationProps) {
               {isRegister ? "Đăng Ký Tài Khoản" : "Đăng Nhập Giao Diện"}
             </h2>
             <p className="text-xs text-stone-400 mt-1">
-              Khám phá không gian âm nhạc Nhật Bản tân tiến thượng lưu
+              Khám phá không gian âm nhạc tân tiến thượng lưu
             </p>
           </div>
 
@@ -84,39 +84,39 @@ function AuthenticationPage({ onLoginSuccess }: AuthenticationProps) {
             {/* Email */}
             <div className="space-y-1.5 flex flex-col">
               <label className="text-xs text-stone-400 font-medium">
-                Tên tài khoản / Username
+                Email
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-500">
                   <UserIcon className="w-4 h-4" />
                 </span>
                 <input
-                  type="text"
+                  type="email"
                   required
-                  placeholder="Nhập tên tài khoản..."
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="melody@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-10 pr-4 py-2.5 bg-stone-950/60 border border-stone-800 rounded-xl text-stone-200 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500/50 placeholder:text-stone-600 transition-all"
                 />
               </div>
             </div>
 
-            {/* Email (only shown if registering) */}
+            {/* Username (only shown if registering) */}
             {isRegister && (
               <div className="space-y-1.5 flex flex-col">
                 <label className="text-xs text-stone-400 font-medium">
-                  Email liên hệ
+                  Username
                 </label>
                 <div className="relative">
                   <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-500">
                     <Mail className="w-4 h-4" />
                   </span>
                   <input
-                    type="email"
+                    type="username"
                     required
-                    placeholder="example@melody.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="melodystreamer123"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     className="w-full pl-10 pr-4 py-2.5 bg-stone-950/60 border border-stone-800 rounded-xl text-stone-200 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500/50 placeholder:text-stone-600 transition-all"
                   />
                 </div>
