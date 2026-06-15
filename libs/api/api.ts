@@ -1,7 +1,8 @@
 import { useAuthStore } from "@/store/authStore";
 import { clearTokenCookie, setTokenCookie } from "../cookie";
+import { ApiError } from "../errors";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
 
 function buildHeaders(token?: string, isJson = true) {
   return {
@@ -13,8 +14,13 @@ function buildHeaders(token?: string, isJson = true) {
 // ─── Shared error handler ─────────────────────────────────────
 async function handleResponse(res: Response) {
   if (!res.ok) {
-    const error = await res.json().catch(() => ({}));
-    throw new Error(error.message ?? `HTTP ${res.status}`);
+    const body = await res.json().catch(() => ({}));
+    throw new ApiError({
+      status: body.status ?? res.status,
+      detail: body.detail ?? "An unexpected error occurred",
+      title: body.title ?? "Error",
+      instance: body.instance ?? "",
+    });
   }
   return res.json();
 }
@@ -86,7 +92,7 @@ function createClient(accessToken?: string) {
             handleResponse,
           ),
 
-    post: (endpoint: string, body: unknown) =>
+    post: (endpoint: string, body?: unknown) =>
       accessToken
         ? fetchWithRefresh(
             endpoint,

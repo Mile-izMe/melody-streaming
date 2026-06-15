@@ -8,7 +8,7 @@ import {
   LogIn,
   LogOut,
   Music2,
-  Upload
+  Upload,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -118,7 +118,7 @@ export default function NavBar() {
                     {user.username}
                   </span>
                   <span className="text-[8px] text-amber-500 font-mono tracking-wider mt-0.5">
-                    {t("artist")}
+                    {user.email}
                   </span>
                 </div>
 
@@ -126,7 +126,7 @@ export default function NavBar() {
 
                 <button
                   onClick={logout}
-                  className="text-stone-500 hover:text-red-400 transition-colors duration-300"
+                  className="cursor-pointer text-stone-500 hover:text-red-400 transition-colors duration-300"
                   title={t("logout")}
                 >
                   <LogOut className="w-3.5 h-3.5" />

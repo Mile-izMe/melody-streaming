@@ -15,34 +15,12 @@ import { Locale, useTranslations } from "next-intl";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import AvatarPicker from "./AvatarPicker";
-
-const PRESET_AVATARS = [
-  {
-    name: "Zen Mist",
-    url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80",
-  },
-  {
-    name: "Cyber Samurai",
-    url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
-  },
-  {
-    name: "Golden Bonsai",
-    url: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80",
-  },
-  {
-    name: "Nara Deer",
-    url: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80",
-  },
-];
 
 export default function LoginForm() {
   const [isRegister, setIsRegister] = useState(false);
-  const [selectedAvatar, setSelectedAvatar] = useState(PRESET_AVATARS[0].url);
   const [serverError, setServerError] = useState("");
-
+  const [successMessage, setSuccessMessage] = useState("");
   const t = useTranslations("authentication.login_form");
-  const tAvatar = useTranslations("authentication.avatar_picker");
   const tValidation = useTranslations("authentication.validation");
   const { login } = useAuthStore();
   const router = useRouter();
@@ -73,29 +51,30 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginInput | RegisterInput) => {
     setServerError("");
     try {
-      const payload = isRegister
-        ? ({ ...data, avatarUrl: selectedAvatar } as RegisterInput)
-        : (data as LoginInput);
+      if (isRegister) {
+        // ── Register — No token ──────────────────────
+        const res = await authApi.register(data as RegisterInput);
+        setSuccessMessage(res.message);
+      } else {
+        // ── Login ──────────────────────
+        const res = await authApi.login(data as LoginInput);
+        console.log("Login response:", res);
 
-      const res = isRegister
-        ? await authApi.register(payload as RegisterInput)
-        : await authApi.login(payload as LoginInput);
+        login(
+          {
+            username: res.username,
+            email: res.email,
+            isLoggedIn: true,
+          },
+          res.tokens.accessToken,
+          res.tokens.refreshToken,
+        );
 
-      login(
-        {
-          username: res.user.username,
-          email: res.user.email,
-          avatarUrl: res.user.avatarUrl,
-          isLoggedIn: true,
-        },
-        res.accessToken,
-        res.refreshToken,
-      );
+        setTokenCookie(res.tokens.accessToken);
 
-      setTokenCookie(res.accessToken);
-
-      const callbackUrl = searchParams.get("callbackUrl") ?? `/${locale}/`;
-      router.push(callbackUrl);
+        const callbackUrl = searchParams.get("callbackUrl") ?? `/${locale}/`;
+        router.push(callbackUrl);
+      }
     } catch (error: unknown) {
       setServerError(
         error instanceof Error ? error.message : t("server_error"),
@@ -107,6 +86,7 @@ export default function LoginForm() {
     setIsRegister(!isRegister);
     reset();
     setServerError("");
+    setSuccessMessage("");
   };
 
   const inputCls = (hasError: boolean) =>
@@ -204,19 +184,19 @@ export default function LoginForm() {
           )}
         </div>
 
-        {/* Avatar picker — chỉ register */}
-        {isRegister && (
-          <AvatarPicker
-            avatars={PRESET_AVATARS}
-            selected={selectedAvatar}
-            onSelect={setSelectedAvatar}
-            label={tAvatar("label")}
-          />
-        )}
-
         {/* Server error */}
         {serverError && (
           <p className="text-xs text-red-400 text-center">{serverError}</p>
+        )}
+
+        {/* Success message */}
+        {successMessage && (
+          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-950/20 border border-amber-900/30">
+            <span className="text-amber-400">✦</span>
+            <p className="text-xs text-amber-300 mt-0.5 leading-relaxed">
+              {successMessage}
+            </p>
+          </div>
         )}
 
         {/* Submit */}
