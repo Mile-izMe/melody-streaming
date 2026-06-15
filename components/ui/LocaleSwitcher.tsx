@@ -3,6 +3,7 @@
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { locales, type Locale } from "@/i18n/config";
+import { setLocaleCookie } from "@/libs";
 
 export default function LocaleSwitcher() {
   const { locale } = useParams<{ locale: Locale }>();
@@ -11,15 +12,16 @@ export default function LocaleSwitcher() {
 
   const switchLocale = (newLocale: Locale) => {
     const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
-    router.push(newPath);
+
+    router.replace(newPath);
   };
 
   useEffect(() => {
     if (!locale) return;
     // set cookie when locale param changes
     try {
-      document.cookie = `locale=${locale}; path=/; max-age=31536000`;
-    } catch (e) {
+      setLocaleCookie(locale);
+    } catch {
       // noop
     }
   }, [locale]);

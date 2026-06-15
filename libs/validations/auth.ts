@@ -1,16 +1,20 @@
 import { z } from "zod";
 
-export const loginSchema = z.object({
-  email: z.string().email("Email không hợp lệ"),
-  password: z.string().min(6, "Mật khẩu tối thiểu 6 ký tự"),
-});
+type MessageGetter = (key: string) => string;
 
-export const registerSchema = z.object({
-  email: z.string().email("Email không hợp lệ"),
-  username: z.string().min(3, "Username tối thiểu 3 ký tự"),
-  password: z.string().min(6, "Mật khẩu tối thiểu 6 ký tự"),
-  avatarUrl: z.string().url().optional(),
-});
+export const createLoginSchema = (t: MessageGetter) =>
+  z.object({
+    email: z.string().email(t("email_invalid")),
+    password: z.string().min(6, t("password_min_length")),
+  });
 
-export type LoginInput = z.infer<typeof loginSchema>;
-export type RegisterInput = z.infer<typeof registerSchema>;
+export const createRegisterSchema = (t: MessageGetter) =>
+  z.object({
+    email: z.string().email(t("email_invalid")),
+    username: z.string().min(3, t("username_min_length")),
+    password: z.string().min(6, t("password_min_length")),
+    avatarUrl: z.string().url().optional(),
+  });
+
+export type LoginInput = z.infer<ReturnType<typeof createLoginSchema>>;
+export type RegisterInput = z.infer<ReturnType<typeof createRegisterSchema>>;

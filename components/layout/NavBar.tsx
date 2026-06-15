@@ -8,18 +8,18 @@ import {
   LogIn,
   LogOut,
   Music2,
-  Sparkles,
-  Upload,
+  Upload
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import LocaleSwitcher from "../ui/LocaleSwitcher";
 
 export default function NavBar() {
   const t = useTranslations("navbar");
   const pathname = usePathname();
   const router = useRouter();
-  const { user, logout, zenMode, setZenMode } = useAuthStore();
+  const { user, logout } = useAuthStore();
 
   const NAV_LINKS = [
     { href: "/", label: t("explore"), icon: Compass },
@@ -76,7 +76,7 @@ export default function NavBar() {
             {/* Upload Button - Protected */}
             <button
               onClick={() =>
-                user.isLoggedIn
+                user?.isLoggedIn
                   ? router.push("/upload")
                   : router.push("/authentication")
               }
@@ -84,7 +84,7 @@ export default function NavBar() {
             >
               <Upload className="w-4 h-4" />
               <span>{t("upload")}</span>
-              {!user.isLoggedIn && (
+              {!user?.isLoggedIn && (
                 <span className="text-[8px] px-1.5 py-0.5 rounded bg-amber-900/60 text-amber-300 font-mono font-bold leading-none">
                   LOCK
                 </span>
@@ -94,27 +94,11 @@ export default function NavBar() {
 
           {/* Right Side */}
           <div className="flex items-center space-x-4">
-            {/* Zen Toggle */}
-            <button
-              onClick={() => setZenMode(!zenMode)}
-              className={`relative p-2.5 rounded-lg border transition-all duration-500 overflow-hidden group ${
-                zenMode
-                  ? "border-amber-500/50 text-amber-400 bg-amber-950/40"
-                  : "border-stone-800 text-stone-400 hover:text-amber-300 hover:border-amber-900/50 bg-stone-900/20"
-              }`}
-              title="Chế độ thiền định âm nhạc (Zen Cinematic Mode)"
-            >
-              <Sparkles
-                className={`w-4 h-4 ${zenMode ? "animate-spin" : "group-hover:rotate-12"} transition-transform duration-700`}
-                style={{ animationDuration: "6s" }}
-              />
-              {zenMode && (
-                <span className="absolute bottom-1 right-1 w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
-              )}
-            </button>
+            {/* Language Toggle */}
+            <LocaleSwitcher />
 
             {/* Authentication */}
-            {user.isLoggedIn ? (
+            {user?.isLoggedIn ? (
               <div className="flex items-center space-x-3 bg-stone-900/40 border border-amber-950/40 rounded-full py-1.5 pl-2 pr-4 shadow-inner">
                 {user.avatarUrl ? (
                   <img

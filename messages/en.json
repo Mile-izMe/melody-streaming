@@ -15,17 +15,46 @@
     "introduction": {
       "tagline": "Premium Audio Experience",
       "title_main": "Melody Stream",
-      "title_accent": "Secure Backend Connect",
+      "title_accent": "Secure Connection",
       "description": "Log in to unlock your personalized music sanctuary. Save your favorite tracks, follow visionary artists, and immerse yourself in an endless universe of sound.",
       "features": {
         "hires_audio_title": "Hi-Res Audio:",
-        "hires_audio_description": "Experience studio-quality (Lossless) streaming that preserves every detail and raw emotion of the original track.",
+        "hires_audio_description": "Experience studio-quality streaming that preserves every detail and raw emotion of the original track.",
         "for_artists_title": "For Artists:",
         "for_artists_description": "The ultimate platform to upload your masterpieces, showcase your unique style, and connect directly with your fanbase.",
         "smart_discovery_title": "Smart Discovery:",
         "smart_discovery_description": "Our AI analyzes your listening habits to curate a daily soundtrack perfectly tailored to your unique taste."
       },
       "security_notice": "Your personal data is strictly secured"
+    },
+    "login_form": {
+      "badge_login": "WELCOME BACK",
+      "badge_register": "NEW ACCOUNT SETUP",
+      "title_login": "Sign In",
+      "title_register": "Create Account",
+      "description": "Step into your personalized music space.",
+      "email_label": "Email",
+      "email_placeholder": "melody@example.com",
+      "username_label": "Username",
+      "username_placeholder": "melodystreamer123",
+      "password_label": "Password",
+      "password_placeholder": "••••••••",
+      "submit_loading": "Processing...",
+      "submit_login": "Sign In",
+      "submit_register": "Complete Registration",
+      "toggle_login_prompt": "Already have an account?",
+      "toggle_login_action": "Sign in",
+      "toggle_register_prompt": "New to Melody Stream?",
+      "toggle_register_action": "Register",
+      "server_error": "An unexpected error occurred"
+    },
+    "avatar_picker": {
+      "label": "Choose an avatar"
+    },
+    "validation": {
+      "email_invalid": "Invalid email address",
+      "password_min_length": "Password must be at least 6 characters",
+      "username_min_length": "Username must be at least 3 characters"
     }
   }
 }
