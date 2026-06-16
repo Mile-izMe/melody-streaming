@@ -1,4 +1,3 @@
-import { User } from "@/types";
 import { publicApi } from "./api";
 import { LoginInput, RegisterInput } from "../validations";
 

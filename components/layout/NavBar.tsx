@@ -12,14 +12,22 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import LocaleSwitcher from "../ui/LocaleSwitcher";
 
 export default function NavBar() {
   const t = useTranslations("navbar");
+  const { locale } = useParams<{ locale?: string }>();
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout } = useAuthStore();
+
+  const localizedPathname = locale
+    ? pathname.replace(new RegExp(`^/${locale}(?=/|$)`), "") || "/"
+    : pathname;
+
+  const localizedHref = (href: string) =>
+    locale ? `/${locale}${href === "/" ? "" : href}` : href;
 
   const NAV_LINKS = [
     { href: "/", label: t("explore"), icon: Compass },
@@ -27,10 +35,10 @@ export default function NavBar() {
     { href: "/history", label: t("recent"), icon: History },
   ];
 
-  if (pathname === "/zen") return null;
-
   const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+    href === "/"
+      ? localizedPathname === "/"
+      : localizedPathname.startsWith(href);
 
   const navCls = (href: string) =>
     `flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium tracking-wide transition-all duration-300 border ${
@@ -40,7 +48,7 @@ export default function NavBar() {
     }`;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 transition-all duration-500 backdrop-blur-xl bg-stone-950/60 border-b border-amber-950/20">
+    <nav className="mb-5 fixed top-0 left-0 right-0 z-40 transition-all duration-500 backdrop-blur-xl bg-stone-950/60 border-b border-amber-950/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo & Luxury Japanese Branding */}
@@ -67,7 +75,11 @@ export default function NavBar() {
           {/* Navigation Links (Minimalist Space Grotesk Style) */}
           <div className="hidden md:flex items-center space-x-1">
             {NAV_LINKS.map(({ href, label, icon: Icon }) => (
-              <Link key={href} href={href} className={navCls(href)}>
+              <Link
+                key={href}
+                href={localizedHref(href)}
+                className={navCls(href)}
+              >
                 <Icon className="w-4 h-4" />
                 <span>{label}</span>
               </Link>
@@ -77,8 +89,8 @@ export default function NavBar() {
             <button
               onClick={() =>
                 user?.isLoggedIn
-                  ? router.push("/upload")
-                  : router.push("/authentication")
+                  ? router.push(localizedHref("/upload"))
+                  : router.push(localizedHref("/authentication"))
               }
               className={navCls("/upload") + " cursor-pointer"}
             >
@@ -134,7 +146,7 @@ export default function NavBar() {
               </div>
             ) : (
               <button
-                onClick={() => router.push("/authentication")}
+                onClick={() => router.push(localizedHref("/authentication"))}
                 className="cursor-pointer relative flex items-center space-x-2 px-5 py-2.5 rounded-full overflow-hidden transition-all duration-500 bg-gradient-to-r from-amber-700 to-amber-900 hover:from-amber-600 hover:to-amber-800 shadow-md shadow-amber-950/30 group active:scale-95"
               >
                 <LogIn className="w-4 h-4 text-stone-100 group-hover:translate-x-0.5 transition-transform duration-300" />
