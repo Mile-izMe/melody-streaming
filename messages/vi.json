@@ -11,6 +11,62 @@
     "trending": "Thịnh Hành",
     "newest": "Mới Nhất"
   },
+  "upload": {
+    "information": {
+      "badge": "TRẠM SÁNG TÁC ĐƯỢC QUẢN LÝ",
+      "title": "Bàn Đăng Tác Phẩm",
+      "description": "Bạn đang đứng trong căn phòng đăng tải đặc quyền của Melody Stream. Hãy cung cấp tệp âm thanh thô cùng tiêu đề để hệ thống chuẩn bị phát hành.",
+      "cta": "Mở Khung Đăng Tải"
+    },
+    "modal": {
+      "title": "Đăng Tác Phẩm",
+      "close_label": "Đóng hộp thoại đăng tải"
+    },
+    "form": {
+      "submit_idle": "Xác Thực & Đăng Tác Phẩm",
+      "submit_presign": "Đang chuẩn bị...",
+      "submit_uploading": "Đang tải lên S3...",
+      "submit_saving": "Đang lưu metadata...",
+      "submit_done": "Hoàn tất!",
+      "audio_required": "Vui lòng chọn file âm thanh",
+      "generic_error": "Đã có lỗi xảy ra, vui lòng thử lại"
+    },
+    "audio_zone": {
+      "badge": "ĐÃ XÁC THỰC MÃ HÓA",
+      "prompt": "Kéo thả hoặc click để chọn file âm thanh",
+      "limit": "MP3, WAV, FLAC · Tối đa 50MB"
+    },
+    "cover_picker": {
+      "label": "Ảnh bìa",
+      "optional": "tùy chọn",
+      "choose_from_device": "Chọn từ máy",
+      "replace": "Đổi ảnh",
+      "formats": "JPG, PNG, WebP · Tối đa 5MB",
+      "invalid_type": "Chỉ chấp nhận file ảnh",
+      "too_large": "Ảnh tối đa 5MB",
+      "preview_alt": "Xem trước ảnh bìa",
+      "presets": {
+        "tokyo_neon": "Tokyo Neon",
+        "luxury_wood": "Luxury Wood",
+        "bamboo_mist": "Bamboo Mist"
+      }
+    },
+    "song_meta": {
+      "title_label": "Tên tác phẩm",
+      "title_placeholder": "Gió Đông Ôn Hòa",
+      "artist_label": "Nghệ sĩ",
+      "artist_placeholder": "Tên nghệ sĩ",
+      "lyrics_label": "Lyrics",
+      "lyrics_optional": "tùy chọn · mỗi dòng một đoạn",
+      "lyrics_placeholder": "Mặt hồ phẳng lặng vương khói sương..."
+    },
+    "validation": {
+      "file_name_required": "Tên file là bắt buộc",
+      "content_type_required": "Loại nội dung là bắt buộc",
+      "title_min_length": "Tên tác phẩm phải có ít nhất 3 ký tự",
+      "artist_min_length": "Tên nghệ sĩ phải có ít nhất 2 ký tự"
+    }
+  },
   "authentication": {
     "introduction": {
       "tagline": "Trải Nghiệm Âm Thanh Cao Cấp",
@@ -54,7 +110,9 @@
     "validation": {
       "email_invalid": "Email không hợp lệ",
       "password_min_length": "Mật khẩu tối thiểu 6 ký tự",
-      "username_min_length": "Username tối thiểu 3 ký tự"
+      "username_min_length": "Username tối thiểu 3 ký tự",
+      "file_name_required": "Tên file là bắt buộc",
+      "content_type_required": "Loại nội dung là bắt buộc"
     }
   }
 }

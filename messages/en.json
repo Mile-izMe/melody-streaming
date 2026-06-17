@@ -11,6 +11,62 @@
     "trending": "Trending",
     "newest": "Latest"
   },
+  "upload": {
+    "information": {
+      "badge": "MANAGED CREATIVE STATION",
+      "title": "Upload Desk",
+      "description": "You are standing in Melody Stream's privileged upload room. Provide the raw audio file and a title so the platform can prepare it for publishing.",
+      "cta": "Open Upload Panel"
+    },
+    "modal": {
+      "title": "Upload Track",
+      "close_label": "Close upload modal"
+    },
+    "form": {
+      "submit_idle": "Verify & Upload Track",
+      "submit_presign": "Preparing...",
+      "submit_uploading": "Uploading to S3...",
+      "submit_saving": "Saving metadata...",
+      "submit_done": "Done!",
+      "audio_required": "Please choose an audio file",
+      "generic_error": "Something went wrong, please try again"
+    },
+    "audio_zone": {
+      "badge": "ENCRYPTION VERIFIED",
+      "prompt": "Drag and drop or click to choose an audio file",
+      "limit": "MP3, WAV, FLAC · Up to 50MB"
+    },
+    "cover_picker": {
+      "label": "Cover art",
+      "optional": "optional",
+      "choose_from_device": "Choose from device",
+      "replace": "Change image",
+      "formats": "JPG, PNG, WebP · Up to 5MB",
+      "invalid_type": "Only image files are supported",
+      "too_large": "Image must be 5MB or smaller",
+      "preview_alt": "Cover preview",
+      "presets": {
+        "tokyo_neon": "Tokyo Neon",
+        "luxury_wood": "Luxury Wood",
+        "bamboo_mist": "Bamboo Mist"
+      }
+    },
+    "song_meta": {
+      "title_label": "Track title",
+      "title_placeholder": "Gentle East Wind",
+      "artist_label": "Artist",
+      "artist_placeholder": "Artist name",
+      "lyrics_label": "Lyrics",
+      "lyrics_optional": "optional · one line per section",
+      "lyrics_placeholder": "The still lake is wrapped in mist..."
+    },
+    "validation": {
+      "file_name_required": "File name is required",
+      "content_type_required": "Content type is required",
+      "title_min_length": "Track title must be at least 3 characters",
+      "artist_min_length": "Artist name must be at least 2 characters"
+    }
+  },
   "authentication": {
     "introduction": {
       "tagline": "Premium Audio Experience",
@@ -54,7 +110,9 @@
     "validation": {
       "email_invalid": "Invalid email address",
       "password_min_length": "Password must be at least 6 characters",
-      "username_min_length": "Username must be at least 3 characters"
+      "username_min_length": "Username must be at least 3 characters",
+      "file_name_required": "File name is required",
+      "content_type_required": "Content type is required"
     }
   }
 }
