@@ -2,7 +2,28 @@ import { useAuthStore } from "@/store/authStore";
 import { clearTokenCookie, setTokenCookie } from "../cookie";
 import { ApiError } from "../errors";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");
+const API_URL = process.env.API_URL?.replace(/\/$/, "");
+const VERCEL_URL = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : undefined;
+
+function resolveBaseUrl() {
+  if (typeof window !== "undefined") {
+    return NEXT_PUBLIC_API_URL || "";
+  }
+
+  const resolved =
+    NEXT_PUBLIC_API_URL || API_URL || VERCEL_URL || "http://localhost:3000";
+  return resolved;
+}
+
+function buildUrl(endpoint: string) {
+  const normalizedEndpoint = endpoint.startsWith("/")
+    ? endpoint
+    : `/${endpoint}`;
+  return `${resolveBaseUrl()}${normalizedEndpoint}`;
+}
 
 function buildHeaders(token?: string, isJson = true) {
   return {
@@ -31,7 +52,7 @@ async function fetchWithRefresh(
   options: RequestInit,
   accessToken: string,
 ): Promise<Response> {
-  const res = await fetch(`${BASE_URL}${endpoint}`, {
+  const res = await fetch(buildUrl(endpoint), {
     ...options,
     headers: {
       ...options.headers,
@@ -48,7 +69,7 @@ async function fetchWithRefresh(
     }
 
     try {
-      const refreshRes = await fetch(`${BASE_URL}/api/auth/refresh`, {
+      const refreshRes = await fetch(buildUrl("/api/auth/refresh"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refreshToken }),
@@ -61,7 +82,7 @@ async function fetchWithRefresh(
       setTokens(newAccessToken, refreshToken);
       setTokenCookie(newAccessToken);
 
-      return fetch(`${BASE_URL}${endpoint}`, {
+      return fetch(buildUrl(endpoint), {
         ...options,
         headers: {
           ...options.headers,
@@ -88,7 +109,7 @@ function createClient(accessToken?: string) {
             { headers: buildHeaders(accessToken) },
             accessToken,
           ).then(handleResponse)
-        : fetch(`${BASE_URL}${endpoint}`, { headers: buildHeaders() }).then(
+        : fetch(buildUrl(endpoint), { headers: buildHeaders() }).then(
             handleResponse,
           ),
 
@@ -103,7 +124,7 @@ function createClient(accessToken?: string) {
             },
             accessToken,
           ).then(handleResponse)
-        : fetch(`${BASE_URL}${endpoint}`, {
+        : fetch(buildUrl(endpoint), {
             method: "POST",
             headers: buildHeaders(),
             body: JSON.stringify(body),

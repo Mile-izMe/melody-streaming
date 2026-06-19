@@ -6,5 +6,6 @@ export interface Song {
   thumbnailUrl?: string;
   duration?: number;
   lyrics?: string[];
+  status: string;
 }
  

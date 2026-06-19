@@ -1,5 +1,6 @@
+import { CursorPage } from "../response";
 import { PresignInput, SongRequest } from "../validations";
-import { privateApi } from "./api";
+import { privateApi, publicApi } from "./api";
 
 export interface PresignResponse {
   objectKey: string;
@@ -14,9 +15,21 @@ export interface SongResponse {
   thumbnailUrl?: string;
   duration?: number;
   lyrics?: string[];
+  status: string;
 }
 
 export const songApi = {
+  getSongs: (cursor?: string, size = 20): Promise<CursorPage<SongResponse>> =>
+    publicApi.get(
+      `/api/songs?size=${size}${cursor ? `&cursor=${cursor}` : ""}`,
+    ),
+
+  getSong: (id: string): Promise<SongResponse> =>
+    publicApi.get(`/api/songs/${id}`),
+
+  getStreamUrl: (songId: string) =>
+    `${process.env.NEXT_PUBLIC_API_URL ?? ""}/api/songs/stream/${songId}/master.m3u8`,
+
   getPresignUrl: (
     data: PresignInput,
     token: string,
