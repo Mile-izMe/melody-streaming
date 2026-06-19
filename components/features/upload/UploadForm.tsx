@@ -62,7 +62,7 @@ export default function UploadForm() {
     setServerError("");
 
     try {
-      // ── Bước 1: Lấy presign URL cho audio ────────────────
+      // ── Step 1: Get presign URL for audio ────────────────
       setUploadProgress("presign");
       const audioPresign = await songApi.getPresignUrl(
         {
@@ -72,11 +72,11 @@ export default function UploadForm() {
         accessToken,
       );
 
-      // ── Bước 2: Upload audio lên S3 ───────────────────────
+      // ── Step 2: Upload audio to S3 ───────────────────────
       setUploadProgress("uploading");
       await songApi.uploadDirect(audioPresign.presignUrl, audioFile);
 
-      // ── Bước 3: Presign + upload cover (nếu có) ─────────────
+      // ── Step 3: Presign + upload cover (optional) ─────────────
       let thumbnailKey: string | undefined;
       if (coverFile) {
         const coverPresign = await songApi.getPresignUrl(
@@ -90,7 +90,7 @@ export default function UploadForm() {
         thumbnailKey = coverPresign.objectKey;
       }
 
-      // ── Bước 4: Lưu metadata vào DB ───────────────────────
+      // ── Step 4: Save metadata to DB ───────────────────────
       setUploadProgress("saving");
       await songApi.createSong(
         {
