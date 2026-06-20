@@ -8,7 +8,7 @@ export async function setTokenCookie(token: string) {
     value: token,
     httpOnly: true, // Avoid XSS
     path: "/", // Available on all routes
-    maxAge: 900,
+    maxAge: 60 * 60 * 24 * 30,
     sameSite: "lax", // CSRF protection
   });
 }

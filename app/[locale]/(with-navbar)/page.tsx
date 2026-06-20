@@ -1,14 +1,18 @@
 import { ContentModal } from "@/components/features/home";
+import HomeView from "@/components/features/home/HomeView";
 import { CursorPage, songApi } from "@/libs";
 import { Song } from "@/types";
 
 export default async function HomePage() {
-  const inital: CursorPage<Song> = await songApi.getSongs();
+  const initial: CursorPage<Song> = await songApi.getSongs();
+  console.log("initial", initial.items);
+
   return (
-    <div className=" selection:bg-amber-500/30 selection:text-amber-100 flex flex-col relative">
-      <ContentModal />
+    <div className="space-y-12 animate-fadeIn pb-16">
+      <div className=" selection:bg-amber-500/30 selection:text-amber-100 flex flex-col relative">
+        <ContentModal />
+        <HomeView initialData={initial} />
+      </div>
     </div>
   );
 }
-
-
