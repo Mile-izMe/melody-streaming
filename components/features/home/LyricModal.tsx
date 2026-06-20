@@ -3,17 +3,40 @@
 import { usePlayerStore } from "@/store/playerStore";
 import { Languages } from "lucide-react";
 import "./index.css";
+import { useEffect, useMemo, useRef } from "react";
+import { parseLyrics } from "@/libs/common/parseLrc";
 
 export default function LyricModal() {
-  const { currentSong, currentTime, duration, isExpanded } = usePlayerStore();
+  const { currentSong, currentTime } = usePlayerStore();
+  const activeLyricRef = useRef<HTMLDivElement>(null);
 
-  if (!currentSong || !isExpanded) return null;
+  const songData = Array.isArray(currentSong) ? currentSong[0] : currentSong;
 
-  const linesCount = currentSong.lyrics?.length ?? 0;
-  const currentLyricIndex = Math.min(
-    Math.floor((currentTime / (duration || 1)) * linesCount),
-    linesCount - 1,
-  );
+  // 2. Dùng useMemo để cache lại mảng lời bài hát.
+  // parseLyrics CHỈ chạy 1 lần duy nhất khi bài hát (songData?.lyrics) thay đổi.
+  const lines = useMemo(() => {
+    return parseLyrics(songData?.lyrics || "");
+  }, [songData?.lyrics]);
+  console.log(lines);
+
+  // Tìm index dòng đang hát
+  const currentLyricIndex = lines.reduce((acc, line, idx) => {
+    return currentTime >= line.time ? idx : acc;
+  }, -1);
+
+  // Auto scroll to the active lyric line when currentLyricIndex changes
+  useEffect(() => {
+    if (activeLyricRef.current) {
+      activeLyricRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [currentLyricIndex]);
+
+  if (!currentSong) {
+    return null;
+  }
 
   return (
     <div className="max-w-7xl mx-auto h-[calc(100%-80px)] grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 py-6 overflow-hidden">
@@ -79,8 +102,8 @@ export default function LyricModal() {
 
         {/* Scrolling Lyrics Screen */}
         <div className="flex-1 overflow-y-auto max-h space-y-5 pr-2 custom-scrollbar">
-          {currentSong.lyrics && currentSong.lyrics.length > 0 ? (
-            currentSong.lyrics.map((line, idx) => {
+          {lines.length > 0 ? (
+            lines.map((line, idx) => {
               const isCurrent = idx === currentLyricIndex;
               return (
                 <div
@@ -91,7 +114,7 @@ export default function LyricModal() {
                       : "text-sm text-stone-500 hover:text-stone-300 cursor-pointer"
                   }`}
                 >
-                  {line}
+                  {line.text}
                 </div>
               );
             })

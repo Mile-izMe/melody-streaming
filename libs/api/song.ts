@@ -7,6 +7,11 @@ export interface PresignResponse {
   presignUrl: string;
 }
 
+export interface LyricLine {
+  time: number;
+  text: string;
+}
+
 export interface SongResponse {
   id: string;
   title: string;
@@ -14,7 +19,7 @@ export interface SongResponse {
   audioUrl: string;
   thumbnailUrl?: string;
   duration?: number;
-  lyrics?: string[];
+  lyrics?: string;
   status: string;
 }
 

@@ -23,5 +23,5 @@ export interface SongRequest {
   artist: string;
   objectKey: string;
   thumbnailUrl?: string;
-  lyrics?: string[];
+  lyrics?: string;
 }

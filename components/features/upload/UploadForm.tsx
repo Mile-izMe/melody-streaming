@@ -96,9 +96,7 @@ export default function UploadForm() {
         {
           title: data.title,
           artist: data.artist,
-          lyrics: data.lyrics
-            ? data.lyrics.split("\n").filter(Boolean)
-            : undefined,
+          lyrics: data.lyrics,
           objectKey: audioPresign.objectKey,
           thumbnailUrl: thumbnailKey,
         } satisfies SongRequest,

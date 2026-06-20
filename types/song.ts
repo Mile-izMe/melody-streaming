@@ -5,7 +5,6 @@ export interface Song {
   audioUrl: string;
   thumbnailUrl?: string;
   duration?: number;
-  lyrics?: string[];
+  lyrics?: string;
   status: string;
 }
- 

@@ -65,12 +65,14 @@ function SongMetaFields({ register, errors }: Props) {
       <div className="space-y-1.5 flex flex-col">
         <label className="text-xs text-stone-400 font-medium">
           {t("lyrics_label")}{" "}
-          <span className="text-stone-600">({t("lyrics_optional")})</span>
+          <span className="text-stone-600">
+            ((LRC format: [00:01.20]Amazing song lyric line))
+          </span>
         </label>
         <textarea
           {...register("lyrics")}
-          rows={3}
-          placeholder={t("lyrics_placeholder")}
+          rows={5}
+          placeholder={`[00:01.20]Ta đang tìm cách quên người\n[00:05.50]Dù con tim ngu si vẫn muôn đời nhớ em`}
           className={`${inputCls(!!errors.lyrics)} resize-none`}
         />
       </div>
