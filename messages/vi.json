@@ -16,6 +16,11 @@
       "title": "Thông báo",
       "all_read": "Đã đọc tất cả",
       "empty": "Chưa có thông báo"
+    },
+    "content_modal": {
+      "badge_label": "TẬN HƯỞNG ÂM NHẠC · MUSIC STYLE",
+      "listening_now": "ĐANG NGHE",
+      "description": "Nơi giao thoa giữa nhạc cụ truyền thống, âm sắc thiên nhiên mộc mạc và những làn sóng điện tử tối giản. Khám phá không gian thưởng thức tinh tế, mang đậm dấu ấn nghệ thuật."
     }
   },
   "upload": {

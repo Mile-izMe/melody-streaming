@@ -24,20 +24,24 @@ export function useNotification() {
   }, [user?.isLoggedIn, accessToken, setNotifications]);
 
   // Subscribe WebSocket topic
-  const handleNotification = useCallback((data: unknown) => {
-    const notification = data as Notification;
-    addNotification(notification);
+  const handleNotification = useCallback(
+    (data: unknown) => {
+      const notification = data as Notification;
+      addNotification(notification);
 
-    if (notification.type === "SONG_COMPLETED") {
-      fetchSongs();
-    }
-  }, []);
+      if (notification.type === "SONG_COMPLETED") {
+        fetchSongs();
+      }
+    },
+    [fetchSongs, addNotification],
+  );
 
   useEffect(() => {
     // Only subscribe if client is connected
     if (!user?.id) return;
 
     const topic = `/topic/notifications/${user.id}`;
+    console.log("[Notification] Subscribing to:", topic);
     wsClient.subscribe(topic, handleNotification);
 
     return () => {

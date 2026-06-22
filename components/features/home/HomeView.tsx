@@ -19,7 +19,9 @@ export default function HomeView({ initialData }: HomeViewProps) {
 
   // Hydrate store from server data
   useEffect(() => {
-    hydrate(initialData);
+    if (songs.length === 0) {
+      hydrate(initialData);
+    }
   }, []);
 
   // Display first 5 songs by default, with option to expand

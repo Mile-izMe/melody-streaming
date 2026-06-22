@@ -38,6 +38,7 @@ export function useWebSocket() {
     }
 
     wsClient.connect(user.id);
+    console.log("[WS] Connected, userId=", user.id);
     return () => {
       wsClient.disconnect();
     };

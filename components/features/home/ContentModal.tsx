@@ -1,6 +1,9 @@
 import { Sparkles } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 function ContentModal() {
+  const t = useTranslations("ui.content_modal");
+
   return (
     <div className="relative rounded-3xl overflow-hidden h-72 sm:h-96 border border-amber-950/20 bg-stone-900/40 p-6 sm:p-12 flex flex-col justify-end shadow-2xl">
       {/* Background Visual Graphic with light mist */}
@@ -20,7 +23,7 @@ function ContentModal() {
       <div className="absolute top-6 right-6 flex items-center space-x-2 bg-stone-950/60 border border-amber-950/40 px-3 py-1.5 rounded-full backdrop-blur-md">
         <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping" />
         <span className="text-[9px] font-mono tracking-widest text-[#d4af37] select-none">
-          2,480 LISTENING NOW
+          <span className="font-bold">2,480</span> {t("listening_now")}
         </span>
       </div>
 
@@ -28,7 +31,7 @@ function ContentModal() {
       <div className="relative space-y-3 max-w-xl text-left">
         <div className="flex items-center space-x-2 text-amber-500/90 font-mono text-[10px] tracking-[0.3em]">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>TẬN HƯỞNG ÂM NHẠC - MUSIC STYLE</span>
+          <span>{t("badge_label")}</span>
         </div>
 
         <h2 className="text-3xl sm:text-5xl font-sans font-bold text-stone-100 tracking-tight leading-none">
@@ -39,9 +42,7 @@ function ContentModal() {
         </h2>
 
         <p className="text-xs sm:text-sm text-stone-300 font-sans leading-relaxed">
-          Nơi kết tinh giữa nhạc cụ koto truyền thống, hơi thở thiên nhiên mộc
-          mạc Nhật Bản và những dòng sóng điện tử tương lai tối giản. Khám phá
-          không gian sang trọng đậm chất nghệ thuật sành điệu.
+          {t("description")}
         </p>
 
         <div className="pt-4 flex flex-wrap gap-3">

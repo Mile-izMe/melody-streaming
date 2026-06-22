@@ -6,5 +6,5 @@ export const notificationApi = {
     privateApi(token).get("/api/notifications"),
 
   markAllRead: (token: string): Promise<void> =>
-    privateApi(token).put("/api/notification/read-all", {}),
+    privateApi(token).put("/api/notifications/read-all", {}),
 };
