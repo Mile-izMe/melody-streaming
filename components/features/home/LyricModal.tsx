@@ -12,14 +12,13 @@ export default function LyricModal() {
 
   const songData = Array.isArray(currentSong) ? currentSong[0] : currentSong;
 
-  // 2. Dùng useMemo để cache lại mảng lời bài hát.
-  // parseLyrics CHỈ chạy 1 lần duy nhất khi bài hát (songData?.lyrics) thay đổi.
+  // Use useMemo to cache lyrics
   const lines = useMemo(() => {
     return parseLyrics(songData?.lyrics || "");
   }, [songData?.lyrics]);
   console.log(lines);
 
-  // Tìm index dòng đang hát
+  // Find index of the current lyric line
   const currentLyricIndex = lines.reduce((acc, line, idx) => {
     return currentTime >= line.time ? idx : acc;
   }, -1);

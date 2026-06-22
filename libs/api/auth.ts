@@ -1,4 +1,4 @@
-import { publicApi } from "./api";
+import { privateApi, publicApi } from "./api";
 import { LoginInput, RegisterInput } from "../validations";
 
 export interface RegisterResponse {
@@ -31,6 +31,6 @@ export const authApi = {
   ): Promise<{ accessToken: string; refreshToken: string }> =>
     publicApi.post("/api/auth/refresh", { refreshToken }),
 
-  logout: (): Promise<{ message: string }> =>
-    publicApi.post("/api/auth/logout"),
+  logout: (accessToken: string): Promise<{ message: string }> =>
+    privateApi(accessToken).post("/api/auth/logout"),
 };

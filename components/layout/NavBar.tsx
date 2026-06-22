@@ -137,7 +137,10 @@ export default function NavBar() {
                 <div className="w-[1px] h-4 bg-stone-800 mx-1" />
 
                 <button
-                  onClick={logout}
+                  onClick={async () => {
+                    await logout();
+                    router.push(localizedHref("/"));
+                  }}
                   className="cursor-pointer text-stone-500 hover:text-red-400 transition-colors duration-300"
                   title={t("logout")}
                 >

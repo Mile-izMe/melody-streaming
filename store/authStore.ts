@@ -1,4 +1,4 @@
-import { clearTokenCookie } from "@/libs";
+import { authApi, clearTokenCookie } from "@/libs";
 import { User } from "@/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -14,7 +14,7 @@ interface AuthStore {
 
 export const useAuthStore = create<AuthStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
       accessToken: null,
       refreshToken: null,
@@ -22,9 +22,17 @@ export const useAuthStore = create<AuthStore>()(
         set({ accessToken, refreshToken }),
       login: (user, accessToken, refreshToken) =>
         set({ user, accessToken, refreshToken }),
-      logout: () => {
-        clearTokenCookie();
-        set({ user: null, accessToken: null, refreshToken: null });
+      logout: async () => {
+        const { accessToken } = get();
+        try {
+          if (accessToken) {
+            await authApi.logout(accessToken);
+          }
+        } catch {
+        } finally {
+          clearTokenCookie();
+          set({ user: null, accessToken: null, refreshToken: null });
+        }
       },
     }),
     {
