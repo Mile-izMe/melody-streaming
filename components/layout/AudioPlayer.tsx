@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { formatTimeSong } from "@/libs/common/formatTimeSong";
 import { LyricModal } from "../features/home";
+import Image from "next/image";
 
 function AudioPlayer() {
   const {
@@ -59,8 +60,18 @@ function AudioPlayer() {
       hlsRef.current = hls;
       hls.loadSource(streamUrl);
       hls.attachMedia(audioRef.current);
+
+      // hlsRef.current?.on(Hls.Events.FRAG_LOADED, (_, data) => {
+      //   console.log(
+      //     "Segment load time:",
+      //     data.frag.stats.loading.end - data.frag.stats.loading.start,
+      //     "ms",
+      //   );
+      //   console.log("Bitrate:", hlsRef.current?.bandwidthEstimate, "bps");
+      // });
+
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        if (isPlaying) audioRef.current?.play().catch(() => {});
+        audioRef.current?.play().catch(() => {});
       });
     } else if (audioRef.current.canPlayType("application/vnd.apple.mpegurl")) {
       // Safari native HLS
@@ -118,6 +129,10 @@ function AudioPlayer() {
     setProgress(val);
   };
 
+  const seekTrackStyle = {
+    background: `linear-gradient(to right, #d97706 0%, #d97706 ${progress}%, #292524 ${progress}%, #292524 100%)`,
+  };
+
   if (!currentSong) return null;
 
   return (
@@ -149,11 +164,14 @@ function AudioPlayer() {
             className="relative w-12 h-12 rounded-xl overflow-hidden cursor-pointer border border-amber-950/20 shrink-0 group"
           >
             {currentSong.thumbnailUrl ? (
-              <img
-                src={currentSong.thumbnailUrl}
-                alt={currentSong.title}
-                className="w-full h-full object-cover"
-              />
+              <div className="relative w-full h-full">
+                <Image
+                  src={currentSong.thumbnailUrl}
+                  alt={currentSong.title || "Song thumbnail"}
+                  fill
+                  className="object-cover"
+                />
+              </div>
             ) : (
               <div className="w-full h-full bg-stone-900 flex items-center justify-center text-stone-600 text-lg font-bold">
                 {currentSong.title.charAt(0)}
@@ -199,7 +217,7 @@ function AudioPlayer() {
               {isPlaying ? (
                 <Pause className="w-4 h-4 fill-stone-100" />
               ) : (
-                <Play className="w-4 h-4 fill-stone-100 translate-x-[1px]" />
+                <Play className="w-4 h-4 fill-stone-100 translate-x-px" />
               )}
             </button>
             <button
@@ -227,6 +245,7 @@ function AudioPlayer() {
               max="100"
               value={progress || 0}
               onChange={handleSeek}
+              style={seekTrackStyle}
               className="flex-1 h-1 bg-stone-800 rounded-full appearance-none cursor-pointer accent-amber-500"
             />
             <span className="text-[9px] font-mono text-stone-500 w-8">

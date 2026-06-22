@@ -77,9 +77,11 @@ async function fetchWithRefresh(
 
       if (!refreshRes.ok) throw new Error();
 
-      const { accessToken: newAccessToken } = await refreshRes.json();
+      const data = await refreshRes.json();
+      const newAccessToken = data.tokens.accessToken ?? data.accessToken;
+      const newRefreshToken = data.tokens.refreshToken ?? data.refreshToken;
 
-      setTokens(newAccessToken, refreshToken);
+      setTokens(newAccessToken, newRefreshToken);
       setTokenCookie(newAccessToken);
 
       return fetch(buildUrl(endpoint), {

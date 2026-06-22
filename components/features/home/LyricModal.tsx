@@ -25,7 +25,7 @@ export default function LyricModal() {
 
   // Auto scroll to the active lyric line when currentLyricIndex changes
   useEffect(() => {
-    if (activeLyricRef.current) {
+    if (currentLyricIndex >= 0 && activeLyricRef.current) {
       activeLyricRef.current.scrollIntoView({
         behavior: "smooth",
         block: "center",
@@ -107,6 +107,7 @@ export default function LyricModal() {
               return (
                 <div
                   key={idx}
+                  ref={isCurrent ? activeLyricRef : undefined}
                   className={`transition-all duration-500 origin-left py-1 text-center md:text-left ${
                     isCurrent
                       ? "text-lg text-amber-400 font-sans font-medium scale-102 filter drop-shadow-[0_0_8px_rgba(212,175,55,0.25)]"

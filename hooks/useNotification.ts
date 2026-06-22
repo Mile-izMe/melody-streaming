@@ -30,6 +30,7 @@ export function useNotification() {
       addNotification(notification);
 
       if (notification.type === "SONG_COMPLETED") {
+           console.log("[Notification] Calling fetchSongs...");
         fetchSongs();
       }
     },
@@ -41,7 +42,6 @@ export function useNotification() {
     if (!user?.id) return;
 
     const topic = `/topic/notifications/${user.id}`;
-    console.log("[Notification] Subscribing to:", topic);
     wsClient.subscribe(topic, handleNotification);
 
     return () => {
