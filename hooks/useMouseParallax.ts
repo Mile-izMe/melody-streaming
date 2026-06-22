@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
 export function useMouseParallax(multiplier: number = 0.05) {

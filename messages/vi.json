@@ -11,6 +11,13 @@
     "trending": "Thịnh Hành",
     "newest": "Mới Nhất"
   },
+  "ui": {
+    "notification_bell": {
+      "title": "Thông báo",
+      "all_read": "Đã đọc tất cả",
+      "empty": "Chưa có thông báo"
+    }
+  },
   "upload": {
     "information": {
       "badge": "TRẠM SÁNG TÁC ĐƯỢC QUẢN LÝ",

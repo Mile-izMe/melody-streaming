@@ -11,6 +11,13 @@
     "trending": "Trending",
     "newest": "Latest"
   },
+  "ui": {
+    "notification_bell": {
+      "title": "Notifications",
+      "all_read": "All caught up",
+      "empty": "No notifications yet"
+    }
+  },
   "upload": {
     "information": {
       "badge": "MANAGED CREATIVE STATION",

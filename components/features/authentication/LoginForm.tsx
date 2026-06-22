@@ -62,6 +62,7 @@ export default function LoginForm() {
 
         login(
           {
+            id: res.userId,
             username: res.username,
             email: res.email,
             isLoggedIn: true,

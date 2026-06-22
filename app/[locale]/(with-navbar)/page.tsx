@@ -5,7 +5,6 @@ import { Song } from "@/types";
 
 export default async function HomePage() {
   const initial: CursorPage<Song> = await songApi.getSongs();
-  console.log("initial", initial.items);
 
   return (
     <div className="space-y-12 animate-fadeIn pb-16">

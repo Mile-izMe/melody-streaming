@@ -9,6 +9,7 @@ interface SongStore {
   isLoading: boolean;
   hydrate: (data: CursorPage<Song>) => void;
   fetchMore: () => Promise<void>;
+  fetchSongs: () => Promise<void>;
 }
 
 export const useSongStore = create<SongStore>((set, get) => ({
@@ -36,6 +37,20 @@ export const useSongStore = create<SongStore>((set, get) => ({
         nextCursor: res.nextCursor,
         hasMore: res.hasMore,
       }));
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  fetchSongs: async () => {
+    set({ isLoading: true });
+    try {
+      const res = await songApi.getSongs();
+      set({
+        songs: res.items,
+        nextCursor: res.nextCursor,
+        hasMore: res.hasMore,
+      });
     } finally {
       set({ isLoading: false });
     }

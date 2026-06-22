@@ -14,6 +14,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import LocaleSwitcher from "../ui/LocaleSwitcher";
+import NotificationBell from "../ui/NotificationBell";
 
 export default function NavBar() {
   const t = useTranslations("navbar");
@@ -106,6 +107,8 @@ export default function NavBar() {
 
           {/* Right Side */}
           <div className="flex items-center space-x-4">
+            {/* Notification Bell */}
+            {user?.isLoggedIn && <NotificationBell />}
             {/* Language Toggle */}
             <LocaleSwitcher />
 

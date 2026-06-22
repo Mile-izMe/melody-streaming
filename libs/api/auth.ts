@@ -9,7 +9,7 @@ export interface RegisterResponse {
 }
 
 export interface LoginResponse {
-  id: string;
+  userId: string;
   username: string;
   email: string;
   roles: string[];
