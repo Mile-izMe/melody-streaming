@@ -55,7 +55,7 @@ export default function LyricModal() {
           )}
 
           {/* Overlay shadow */}
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-linear-to-t from-stone-950/80 via-transparent to-transparent opacity-60" />
 
           {/* Glowing Ambient Light Backing */}
           <div className="absolute inset-0 bg-amber-500/10 blur-xl scale-90 pointer-events-none -z-10 mix-blend-screen opacity-50" />

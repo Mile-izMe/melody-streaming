@@ -212,7 +212,7 @@ function AudioPlayer() {
             </button>
             <button
               onClick={togglePlay}
-              className="cursor-pointer w-10 h-10 rounded-full bg-gradient-to-tr from-amber-700 to-amber-950 hover:from-amber-600 hover:to-amber-900 text-stone-100 flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition-all"
+              className="cursor-pointer w-10 h-10 rounded-full bg-linear-to-tr from-amber-700 to-amber-950 hover:from-amber-600 hover:to-amber-900 text-stone-100 flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition-all"
             >
               {isPlaying ? (
                 <Pause className="w-4 h-4 fill-stone-100" />

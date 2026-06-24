@@ -11,6 +11,13 @@
     "trending": "Trending",
     "newest": "Latest"
   },
+  "search": {
+    "placeholder": "What do you want to play?",
+    "artists": "ARTISTS",
+    "songs": "SONGS",
+    "no_results": "No results found for \"{term}\"",
+    "page_message": "This is the search page"
+  },
   "ui": {
     "notification_bell": {
       "title": "Notifications",

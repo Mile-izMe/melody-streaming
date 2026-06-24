@@ -1,11 +1,11 @@
-import React from "react";
+import { getTranslations } from "next-intl/server";
 
-function SearchPage() {
+export default async function SearchPage() {
+  const t = await getTranslations("search");
+
   return (
     <div>
-      <div>This is the search page</div>
+      <div>{t("page_message")}</div>
     </div>
   );
 }
-
-export default SearchPage;

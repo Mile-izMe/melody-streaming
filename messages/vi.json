@@ -11,6 +11,13 @@
     "trending": "Thịnh Hành",
     "newest": "Mới Nhất"
   },
+  "search": {
+    "placeholder": "Bạn muốn nghe gì?",
+    "artists": "NGHỆ SĨ",
+    "songs": "BÀI HÁT",
+    "no_results": "Không tìm thấy kết quả cho \"{term}\"",
+    "page_message": "Đây là trang tìm kiếm"
+  },
   "ui": {
     "notification_bell": {
       "title": "Thông báo",
