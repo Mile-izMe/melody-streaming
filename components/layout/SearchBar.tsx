@@ -2,7 +2,9 @@
 
 import { useDebounce } from "@/hooks";
 import { searchApi, SearchResponse } from "@/libs";
+import { Search } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function SearchBar() {
@@ -10,6 +12,24 @@ export default function SearchBar() {
   const [results, setResults] = useState<SearchResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const t = useTranslations("search");
+  const router = useRouter();
+  const { locale } = useParams<{ locale?: string }>();
+
+  const localizedHref = (href: string) =>
+    locale ? `/${locale}${href === "/" ? "" : href}` : href;
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const keyword = searchTerm.trim();
+    if (!keyword) {
+      return;
+    }
+
+    router.push(
+      localizedHref(`/search?keyword=${encodeURIComponent(keyword)}`),
+    );
+  };
 
   // Wait after 300ms when user stop entering then debouncedSearchTerm changes
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
@@ -38,7 +58,23 @@ export default function SearchBar() {
   }, [debouncedSearchTerm]);
 
   return (
-    <div style={{ position: "relative", width: "400px", margin: "0 auto" }}>
+    <form
+      onSubmit={handleSubmit}
+      style={{ position: "relative", width: "380px", margin: "0 auto" }}
+    >
+      <Search
+        size={16}
+        style={{
+          position: "absolute",
+          left: "14px",
+          top: "50%",
+          transform: "translateY(-50%)",
+          color: "#FFC82D",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+
       {/* Input */}
       <input
         type="text"
@@ -54,9 +90,9 @@ export default function SearchBar() {
         }}
         style={{
           width: "100%",
-          padding: "12px 16px",
+          padding: "12px 16px 12px 38px",
           borderRadius: "24px",
-          border: "1px solid #ccc",
+          border: "1px solid #FFC82D",
           outline: "none",
         }}
       />
@@ -76,7 +112,7 @@ export default function SearchBar() {
             top: "50px",
             left: 0,
             right: 0,
-            backgroundColor: "white",
+            backgroundColor: "#100C0B",
             boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
             borderRadius: "8px",
             padding: "12px",
@@ -173,7 +209,7 @@ export default function SearchBar() {
               top: "50px",
               left: 0,
               right: 0,
-              backgroundColor: "white",
+              backgroundColor: "#100C0B",
               padding: "16px",
               textAlign: "center",
               boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
@@ -183,6 +219,6 @@ export default function SearchBar() {
             {t("no_results", { term: searchTerm })}
           </div>
         )}
-    </div>
+    </form>
   );
 }

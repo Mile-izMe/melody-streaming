@@ -15,6 +15,7 @@ import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import LocaleSwitcher from "../ui/LocaleSwitcher";
 import NotificationBell from "../ui/NotificationBell";
+import SearchBar from "./SearchBar";
 
 export default function NavBar() {
   const t = useTranslations("navbar");
@@ -65,44 +66,41 @@ export default function NavBar() {
               <span className="absolute inset-0 rounded-xl bg-amber-500/10 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             </div>
 
-            <div className="flex flex-col">
-              <span className="text-lg font-sans font-semibold tracking-widest text-stone-200 group-hover:text-amber-400 transition-colors duration-300">
-                MELODY{" "}
-                <span className="text-amber-500 font-medium">STREAM</span>
-              </span>
+            {/* Navigation Links (Minimalist Space Grotesk Style) */}
+            <div className="hidden md:flex items-center space-x-1">
+              {NAV_LINKS.map(({ href, label, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={localizedHref(href)}
+                  className={navCls(href)}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span>{label}</span>
+                </Link>
+              ))}
+
+              {/* Upload Button - Protected */}
+              <button
+                onClick={() =>
+                  user?.isLoggedIn
+                    ? router.push(localizedHref("/upload"))
+                    : router.push(localizedHref("/authentication"))
+                }
+                className={navCls("/upload") + " cursor-pointer"}
+              >
+                <Upload className="w-4 h-4" />
+                <span>{t("upload")}</span>
+                {!user?.isLoggedIn && (
+                  <span className="text-[8px] px-1.5 py-0.5 rounded bg-amber-900/60 text-amber-300 font-mono font-bold leading-none">
+                    LOCK
+                  </span>
+                )}
+              </button>
             </div>
           </Link>
 
-          {/* Navigation Links (Minimalist Space Grotesk Style) */}
-          <div className="hidden md:flex items-center space-x-1">
-            {NAV_LINKS.map(({ href, label, icon: Icon }) => (
-              <Link
-                key={href}
-                href={localizedHref(href)}
-                className={navCls(href)}
-              >
-                <Icon className="w-4 h-4" />
-                <span>{label}</span>
-              </Link>
-            ))}
-
-            {/* Upload Button - Protected */}
-            <button
-              onClick={() =>
-                user?.isLoggedIn
-                  ? router.push(localizedHref("/upload"))
-                  : router.push(localizedHref("/authentication"))
-              }
-              className={navCls("/upload") + " cursor-pointer"}
-            >
-              <Upload className="w-4 h-4" />
-              <span>{t("upload")}</span>
-              {!user?.isLoggedIn && (
-                <span className="text-[8px] px-1.5 py-0.5 rounded bg-amber-900/60 text-amber-300 font-mono font-bold leading-none">
-                  LOCK
-                </span>
-              )}
-            </button>
+          <div>
+            <SearchBar />
           </div>
 
           {/* Right Side */}
