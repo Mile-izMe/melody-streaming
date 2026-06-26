@@ -144,8 +144,15 @@ export default function SearchBar() {
                       borderRadius: "50%",
                       backgroundColor: "#eee",
                       marginRight: "12px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontWeight: "bold",
+                      color: "#555",
                     }}
-                  ></div>
+                  >
+                    {artist.title.charAt(0).toUpperCase()}
+                  </div>
                   <div>
                     <div style={{ fontWeight: "bold" }}>{artist.title}</div>
                     <div style={{ fontSize: "12px", color: "#888" }}>

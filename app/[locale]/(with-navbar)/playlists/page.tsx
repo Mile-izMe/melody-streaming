@@ -1,10 +1,10 @@
-import React from "react";
+import Playlist from "@/components/features/playlists/Playlist";
 
 function PlaylistPage() {
   return (
-    <div>
-      <div>This is the playlists page</div>
-    </div>
+    <>
+      <Playlist />
+    </>
   );
 }
 

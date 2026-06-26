@@ -53,18 +53,20 @@ export default function NavBar() {
     <nav className="mb-5 fixed top-0 left-0 right-0 z-40 transition-all duration-500 backdrop-blur-xl bg-stone-950/60 border-b border-amber-950/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo & Luxury Japanese Branding */}
-          <Link
-            href="/"
-            className="flex items-center space-x-3 cursor-pointer group"
-          >
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-amber-700 to-amber-950 p-[1px] shadow-lg shadow-amber-950/20 group-hover:shadow-amber-500/10 transition-shadow duration-500">
-              <div className="absolute inset-0 rounded-xl bg-stone-950 m-[1px] flex items-center justify-center">
-                <Music2 className="w-5 h-5 text-amber-500 group-hover:scale-110 transition-transform duration-500" />
+          <div className="flex items-center space-x-6">
+            {/* Logo & Luxury Japanese Branding */}
+            <Link
+              href="/"
+              className="flex items-center space-x-3 cursor-pointer group"
+            >
+              <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-amber-700 to-amber-950 p-[1px] shadow-lg shadow-amber-950/20 group-hover:shadow-amber-500/10 transition-shadow duration-500">
+                <div className="absolute inset-0 rounded-xl bg-stone-950 m-[1px] flex items-center justify-center">
+                  <Music2 className="w-5 h-5 text-amber-500 group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                {/* Outer Golden Pulsing Halos */}
+                <span className="absolute inset-0 rounded-xl bg-amber-500/10 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               </div>
-              {/* Outer Golden Pulsing Halos */}
-              <span className="absolute inset-0 rounded-xl bg-amber-500/10 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            </div>
+            </Link>
 
             {/* Navigation Links (Minimalist Space Grotesk Style) */}
             <div className="hidden md:flex items-center space-x-1">
@@ -97,7 +99,7 @@ export default function NavBar() {
                 )}
               </button>
             </div>
-          </Link>
+          </div>
 
           <div>
             <SearchBar />
@@ -130,9 +132,9 @@ export default function NavBar() {
                   <span className="text-xs text-stone-300 font-sans font-medium tracking-wide">
                     {user.username}
                   </span>
-                  <span className="text-[8px] text-amber-500 font-mono tracking-wider mt-0.5">
+                  {/* <span className="text-[8px] text-amber-500 font-mono tracking-wider mt-0.5">
                     {user.email}
-                  </span>
+                  </span> */}
                 </div>
 
                 <div className="w-[1px] h-4 bg-stone-800 mx-1" />
