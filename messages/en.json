@@ -133,5 +133,33 @@
       "file_name_required": "File name is required",
       "content_type_required": "Content type is required"
     }
+  },
+  "playlists": {
+    "header": {
+      "badge": "PLAYLIST MANAGEMENT",
+      "title": "Personal Library",
+      "create_button": "Create New Playlist"
+    },
+    "modal_library": {
+      "badge": "PERSONAL LIBRARY SPACE",
+      "title": "Unlock Your Personal Library",
+      "description": "To organize your own personalized playlists, please authenticate your account.",
+      "cta": "Authenticate Now to Unlock the Library"
+    },
+    "create_form": {
+      "title": "Design a New Playlist",
+      "name_placeholder": "Playlist name, e.g. Japanese Zen Rain...",
+      "description_placeholder": "A refined description in a few words...",
+      "cover_label": "Playlist cover art",
+      "cover_hint": "JPG, PNG, WebP · Up to 5MB · Optional",
+      "choose_cover": "Choose image",
+      "change_cover": "Change image",
+      "cover_alt": "Cover art preview",
+      "invalid_type": "Only image files are supported",
+      "too_large": "Image must be 5MB or smaller",
+      "cancel": "Cancel",
+      "submit": "Create now",
+      "generic_error": "Something went wrong, please try again"
+    }
   }
 }

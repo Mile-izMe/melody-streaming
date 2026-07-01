@@ -10,6 +10,7 @@ import { useAuthStore } from "@/store/authStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ImageIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -20,7 +21,6 @@ interface Props {
 function CreateForm({ onClose }: Props) {
   const cForm = useTranslations("playlists.create_form");
   const schema = createPlaylistSchema(cForm);
-  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [thumbnailPreview, setThumbnailPreview] = useState("");
   const [thumbnailError, setThumbnailError] = useState("");
   const [serverError, setServerError] = useState("");
@@ -41,15 +41,14 @@ function CreateForm({ onClose }: Props) {
     const file = e.target.files?.[0];
     if (!file) return;
     if (!file.type.startsWith("image/")) {
-      setThumbnailError("Chỉ chấp nhận file ảnh");
+      setThumbnailError(cForm("invalid_type"));
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
-      setThumbnailError("Ảnh tối đa 5MB");
+      setThumbnailError(cForm("too_large"));
       return;
     }
     setThumbnailError("");
-    setThumbnailFile(file);
     setThumbnailPreview(URL.createObjectURL(file)); // preview local, không cần upload
   };
 
@@ -78,7 +77,7 @@ function CreateForm({ onClose }: Props) {
   return (
     <div className="bg-stone-900/40 border border-amber-950/30 rounded-xl p-5 backdrop-blur-md">
       <h3 className="text-sm font-semibold tracking-wide text-stone-300 mb-4">
-        Thiết kế Danh sách phát mới
+        {cForm("title")}
       </h3>
       <form onSubmit={handleSubmit(handleCreate)} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -86,7 +85,7 @@ function CreateForm({ onClose }: Props) {
             <input
               type="text"
               required
-              placeholder="Tên Playlist (v.g. Mưa Thiền Nhật Bản)..."
+              placeholder={cForm("name_placeholder")}
               {...register("name")}
               className={`${inputCls(!!errors.name)} pl-9`}
             />
@@ -99,7 +98,7 @@ function CreateForm({ onClose }: Props) {
           <div className="flex flex-col space-y-1">
             <input
               type="text"
-              placeholder="Mô tả tinh tế bằng lời ca..."
+              placeholder={cForm("description_placeholder")}
               {...register("description")}
               className={`${inputCls(!!errors.description)} pl-9`}
             />
@@ -115,35 +114,35 @@ function CreateForm({ onClose }: Props) {
         <div className="flex items-center gap-4">
           <div
             onClick={() => inputRef.current?.click()}
-            className="cursor-pointer w-20 h-20 rounded-xl overflow-hidden border border-stone-800 bg-stone-900 flex items-center justify-center cursor-pointer hover:border-amber-900/50 transition-all shrink-0 relative group"
+            className="cursor-pointer w-20 h-20 rounded-xl overflow-hidden border border-stone-800 bg-stone-900 flex items-center justify-center hover:border-amber-900/50 transition-all shrink-0 relative group"
           >
             {thumbnailPreview ? (
-              <img
+              <Image
                 src={thumbnailPreview}
-                alt="thumbnail"
-                className="w-full h-full object-cover"
+                alt={cForm("cover_alt")}
+                fill
+                unoptimized
+                className="object-cover"
               />
             ) : (
               <ImageIcon className="w-6 h-6 text-stone-600" />
             )}
             <div className="cursor-pointer absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
               <span className="cursor-pointer text-[10px] text-white font-mono">
-                Chọn ảnh
+                {cForm("choose_cover")}
               </span>
             </div>
           </div>
 
           <div className="flex-1 space-y-1">
-            <p className="text-xs text-stone-400">Ảnh bìa playlist</p>
-            <p className="text-[10px] text-stone-600">
-              JPG, PNG, WebP · Tối đa 5MB · Tùy chọn
-            </p>
+            <p className="text-xs text-stone-400">{cForm("cover_label")}</p>
+            <p className="text-[10px] text-stone-600">{cForm("cover_hint")}</p>
             <button
               type="button"
               onClick={() => inputRef.current?.click()}
               className="text-[11px] text-amber-400 hover:text-amber-300 transition-colors"
             >
-              {thumbnailPreview ? "Đổi ảnh" : "Chọn ảnh"}
+              {thumbnailPreview ? cForm("change_cover") : cForm("choose_cover")}
             </button>
             {thumbnailError && (
               <p className="text-[11px] text-red-400">{thumbnailError}</p>
@@ -165,14 +164,14 @@ function CreateForm({ onClose }: Props) {
             onClick={onClose}
             className="cursor-pointer px-3.5 py-1.5 rounded text-stone-400 hover:text-stone-300 text-xs"
           >
-            Hủy bỏ
+            {cForm("cancel")}
           </button>
           <button
             type="submit"
             disabled={isSubmitting}
             className="cursor-pointer px-4 py-2 bg-linear-to-r from-amber-700 to-amber-900 border border-amber-900/30 text-stone-100 rounded text-xs font-semibold"
           >
-            Tạo Ngay
+            {cForm("submit")}
           </button>
         </div>
       </form>

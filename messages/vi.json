@@ -133,5 +133,33 @@
       "file_name_required": "Tên file là bắt buộc",
       "content_type_required": "Loại nội dung là bắt buộc"
     }
+  },
+  "playlists": {
+    "header": {
+      "badge": "QUẢN LÝ DANH SÁCH PHÁT",
+      "title": "Thư Viện Cá Nhân",
+      "create_button": "Tạo Playlist Mới"
+    },
+    "modal_library": {
+      "badge": "KHÔNG GIAN THƯ VIỆN CÁ NHÂN",
+      "title": "Mở khóa Thư Viện Cá Nhân",
+      "description": "Để tổ chức danh sách phát cá nhân hóa của riêng bạn, vui lòng xác thực tài khoản.",
+      "cta": "Xác Thực Ngay Để Mở Khóa Thư Viện"
+    },
+    "create_form": {
+      "title": "Thiết kế Danh sách phát mới",
+      "name_placeholder": "Tên playlist, ví dụ: Mưa Thiền Nhật Bản...",
+      "description_placeholder": "Mô tả tinh tế bằng lời ca...",
+      "cover_label": "Ảnh bìa playlist",
+      "cover_hint": "JPG, PNG, WebP · Tối đa 5MB · Tùy chọn",
+      "choose_cover": "Chọn ảnh",
+      "change_cover": "Đổi ảnh",
+      "cover_alt": "Ảnh xem trước ảnh bìa",
+      "invalid_type": "Chỉ chấp nhận file ảnh",
+      "too_large": "Ảnh tối đa 5MB",
+      "cancel": "Hủy bỏ",
+      "submit": "Tạo ngay",
+      "generic_error": "Đã có lỗi xảy ra, vui lòng thử lại"
+    }
   }
 }
