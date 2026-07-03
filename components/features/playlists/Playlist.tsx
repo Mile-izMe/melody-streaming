@@ -3,6 +3,7 @@
 import { useAuthStore } from "@/store/authStore";
 import ModalLibrary from "./ModalLibrary";
 import PlaylistHeader from "./PlaylistHeader";
+import PlaylistList from "./PlaylistList";
 
 function Playlist() {
   const { user } = useAuthStore();
@@ -14,6 +15,7 @@ function Playlist() {
       ) : (
         <>
           <PlaylistHeader />
+          <PlaylistList />
         </>
       )}
     </>

@@ -10,7 +10,7 @@ function PlaylistHeader() {
   const t = useTranslations("playlists.header");
 
   return (
-    <div className="space-y-8 animate-fadeIn">
+    <div className="space-y-8 mb-5 animate-fadeIn">
       <div className="flex items-center justify-between">
         <div>
           <span className="text-[10px] font-mono text-amber-500 tracking-[0.2em] uppercase">

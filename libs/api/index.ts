@@ -3,3 +3,4 @@ export * from "./auth";
 export * from "./song";
 export * from "./search";
 export * from "./notification";
+export * from "./playlist";
