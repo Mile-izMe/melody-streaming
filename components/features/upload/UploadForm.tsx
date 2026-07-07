@@ -144,7 +144,7 @@ export default function UploadForm() {
       <button
         type="submit"
         disabled={isSubmitting || uploadProgress !== "idle"}
-        className="w-full py-3 flex items-center justify-center gap-2 bg-linear-to-r from-amber-700 to-amber-950 text-stone-100 rounded-xl font-medium text-sm border border-amber-900/40 hover:from-amber-600 hover:to-amber-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+        className="cursor-pointer w-full py-3 flex items-center justify-center gap-2 bg-linear-to-r from-amber-700 to-amber-950 text-stone-100 rounded-xl font-medium text-sm border border-amber-900/40 hover:from-amber-600 hover:to-amber-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
       >
         {(isSubmitting || uploadProgress !== "idle") && (
           <Loader2 className="w-4 h-4 animate-spin" />

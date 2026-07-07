@@ -51,7 +51,7 @@ function PlaylistList() {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* Left List of Playlists */}
       <div className="md:col-span-1 space-y-3">
-        <span className="text-xs font-mono text-stone-500 tracking-wide">
+        <span className="text-sm font-mono text-stone-500 tracking-wide">
           CHỌN TUYỂN TẬP
         </span>
         {!playlists || playlists.length === 0 ? (
@@ -64,7 +64,7 @@ function PlaylistList() {
               <div
                 key={playlist.id}
                 onClick={() => setSelectedPlaylist(playlist)}
-                className={`group relative flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all duration-300 ${
+                className={`group mt-2 relative flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all duration-300 ${
                   selectedPlaylist?.id === playlist.id
                     ? "bg-amber-950/20 border border-amber-500/40 shadow-lg"
                     : "bg-stone-900/20 border border-stone-850 hover:bg-stone-900/30 hover:border-amber-950/40"
@@ -87,10 +87,10 @@ function PlaylistList() {
 
                   {/* Text */}
                   <div className="overflow-hidden">
-                    <span className="text-sm font-semibold tracking-wide text-stone-200 truncate block">
+                    <span className="text-md font-semibold tracking-wide text-stone-200 truncate block">
                       {playlist.name}
                     </span>
-                    <span className="text-[10px] text-stone-400 font-mono tracking-wide mt-0.5 truncate block">
+                    <span className="text-[15px] text-stone-400 font-mono tracking-wide mt-0.5 truncate block">
                       {playlist.songs.length} bài hát •{" "}
                       {new Date(playlist.createdAt).toLocaleDateString("vi-VN")}
                     </span>
@@ -104,7 +104,7 @@ function PlaylistList() {
                       e.stopPropagation();
                       setEditingPlaylist(playlist);
                     }}
-                    className="p-1.5 rounded-full text-stone-600 hover:text-amber-400 opacity-0 group-hover:opacity-100 transition-all"
+                    className="cursor-pointer p-1.5 rounded-full text-stone-600 hover:text-amber-400 opacity-0 group-hover:opacity-100 transition-all"
                     title="Sửa playlist này"
                   >
                     <Pencil className="w-3.5 h-3.5" />
@@ -116,7 +116,7 @@ function PlaylistList() {
                       handleDelete(playlist.id);
                     }}
                     disabled={isDeleting}
-                    className="p-1.5 rounded-full text-stone-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all"
+                    className="cursor-pointer p-1.5 rounded-full text-stone-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all"
                     title="Xóa playlist này"
                   >
                     <Trash2 className="w-3.5 h-3.5" />

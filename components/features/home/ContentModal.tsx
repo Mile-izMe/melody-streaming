@@ -29,7 +29,7 @@ function ContentModal() {
 
       {/* Content */}
       <div className="relative space-y-3 max-w-xl text-left">
-        <div className="flex items-center space-x-2 text-amber-500/90 font-mono text-[10px] tracking-[0.3em]">
+        <div className="flex items-center space-x-2 text-amber-500/90 font-mono text-[14px] tracking-[0.3em]">
           <Sparkles className="w-3.5 h-3.5" />
           <span>{t("badge_label")}</span>
         </div>
@@ -41,7 +41,7 @@ function ContentModal() {
           </span>
         </h2>
 
-        <p className="text-xs sm:text-sm text-stone-300 font-sans leading-relaxed">
+        <p className="text-md sm:text-md text-stone-300 font-sans leading-relaxed">
           {t("description")}
         </p>
 

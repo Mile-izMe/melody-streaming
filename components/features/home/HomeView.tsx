@@ -41,7 +41,7 @@ export default function HomeView({ initialData }: HomeViewProps) {
         <h3 className="text-xl font-semibold text-stone-100 tracking-tight">
           Âm nhạc
         </h3>
-        <span className="text-xs text-stone-500 font-mono tracking-wide">
+        <span className="text-sm text-stone-500 font-mono tracking-wide">
           {songs.length} nhạc phẩm đề xuất
         </span>
       </div>
@@ -63,7 +63,7 @@ export default function HomeView({ initialData }: HomeViewProps) {
           <button
             onClick={handleLoadMore}
             disabled={isLoading}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-stone-800 text-stone-400 text-xs font-mono tracking-widest hover:border-amber-900/50 hover:text-amber-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+            className="text-sm cursor-pointer flex items-center gap-2 px-6 py-2.5 rounded-full border border-stone-800 text-stone-400 font-mono tracking-widest hover:border-amber-900/50 hover:text-amber-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
           >
             {isLoading ? (
               <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -76,7 +76,7 @@ export default function HomeView({ initialData }: HomeViewProps) {
       )}
 
       {expanded && !hasMore && (
-        <p className="text-center text-stone-600 text-xs py-2 font-mono">
+        <p className="text-center text-stone-600 text-sm py-2 font-mono">
           ── Hết danh sách ──
         </p>
       )}

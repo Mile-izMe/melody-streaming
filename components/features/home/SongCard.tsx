@@ -88,7 +88,7 @@ export default function SongCard({
         <div>
           <span
             onClick={onPlay}
-            className={`text-xs font-semibold tracking-wide truncate block cursor-pointer transition-colors ${
+            className={`text-sm font-semibold tracking-wide truncate block cursor-pointer transition-colors ${
               isCurrent
                 ? "text-amber-400 font-bold"
                 : "text-stone-200 group-hover:text-amber-500"
@@ -96,13 +96,13 @@ export default function SongCard({
           >
             {song.title}
           </span>
-          <span className="text-[10px] text-stone-400 truncate block mt-0.5">
+          <span className="text-[14px] text-stone-400 truncate block mt-0.5">
             {song.artist}
           </span>
         </div>
 
         {/* Year / Info Footer Line inside Card */}
-        <div className="flex items-center justify-between text-[8px] font-mono text-stone-500 mt-2.5 pt-2 border-t border-stone-800/50">
+        <div className="flex items-center justify-between text-[12px] font-mono text-stone-500 mt-2.5 pt-2 border-t border-stone-800/50">
           <span>HLS</span>
           {formatTimeSong(song.duration || 0) && (
             <span>{formatTimeSong(song.duration || 0)}</span>

@@ -13,7 +13,7 @@ function PlaylistHeader() {
     <div className="space-y-8 mb-5 animate-fadeIn">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono text-amber-500 tracking-[0.2em] uppercase">
+          <span className="text-[13px] font-mono text-amber-500 tracking-[0.2em] uppercase">
             {t("badge")}
           </span>
           <h1 className="text-3xl font-sans font-semibold text-stone-100 tracking-tight mt-1">

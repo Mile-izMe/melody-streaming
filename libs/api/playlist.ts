@@ -38,8 +38,17 @@ export const playlistApi = {
     id: string,
     data: PlaylistInput,
     token: string,
-  ): Promise<PlaylistResponse> =>
-    privateApi(token).put(`/api/playlists/${id}`, data),
+  ): Promise<PlaylistResponse> => {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    if (data.description) {
+      formData.append("description", data.description);
+    }
+    if (data.thumbnailUrl) {
+      formData.append("thumbnailUrl", data.thumbnailUrl);
+    }
+    return privateApi(token).upload(`/api/playlists/${id}`, formData);
+  },
 
   deletePlaylist: (id: string, token: string): Promise<{ message: string }> =>
     privateApi(token).delete(`/api/playlists/${id}`),

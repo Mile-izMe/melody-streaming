@@ -68,7 +68,7 @@ export default function EditPlaylistModal({
       <div className="bg-stone-900 border border-stone-800 rounded-2xl w-full max-w-md p-6 shadow-2xl relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-stone-500 hover:text-stone-300"
+          className="cursor-pointer absolute top-4 right-4 text-stone-500 hover:text-stone-300"
         >
           <X className="w-5 h-5" />
         </button>
@@ -121,14 +121,14 @@ export default function EditPlaylistModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm text-stone-400 hover:text-stone-200 transition-colors"
+              className="cursor-pointer px-4 py-2 text-sm text-stone-400 hover:text-stone-200 transition-colors"
             >
               Hủy
             </button>
             <button
               type="submit"
               disabled={isUpdating}
-              className="px-6 py-2 bg-amber-600 hover:bg-amber-500 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50"
+              className="cursor-pointer px-6 py-2 bg-amber-600 hover:bg-amber-500 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50"
             >
               {isUpdating ? "Đang lưu..." : "Lưu thay đổi"}
             </button>
