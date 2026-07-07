@@ -1,6 +1,7 @@
 "use client";
 
 import { formatTimeSong } from "@/libs/common/formatTimeSong";
+import { useAuthStore } from "@/store/authStore";
 import { Song } from "@/types";
 import { Heart, Play } from "lucide-react";
 import { useState } from "react";
@@ -19,6 +20,7 @@ export default function SongCard({
   onPlay,
 }: SongCardProps) {
   const [isLiked, setIsLiked] = useState(false);
+  const user = useAuthStore();
 
   return (
     <div
@@ -47,7 +49,7 @@ export default function SongCard({
           {/* Play */}
           <button
             onClick={onPlay}
-            className="w-9 h-9 rounded-full bg-amber-500 text-stone-950 flex items-center justify-center hover:bg-amber-400 transform scale-90 group-hover:scale-100 transition-all duration-300"
+            className="cursor-pointer w-10 h-10 rounded-full bg-amber-500 text-stone-950 flex items-center justify-center hover:bg-amber-400 transform scale-90 group-hover:scale-100 transition-all duration-300"
             title="Phát nhạc"
           >
             {isCurrent && isPlaying ? (
@@ -68,18 +70,22 @@ export default function SongCard({
           </button>
 
           {/* Like */}
-          <button
-            onClick={() => setIsLiked(!isLiked)}
-            className={`w-9 h-9 rounded-full flex items-center justify-center hover:bg-stone-900 border border-stone-800 text-stone-300 transition-colors ${
-              isLiked
-                ? "text-rose-500 border-rose-950/40 bg-rose-950/20"
-                : "bg-stone-950/80"
-            }`}
-          >
-            <Heart
-              className={`w-3.5 h-3.5 ${isLiked ? "fill-current text-rose-500" : ""}`}
-            />
-          </button>
+          {user.user?.isLoggedIn ? (
+            <button
+              onClick={() => setIsLiked(!isLiked)}
+              className={`cursor-pointer w-10 h-10 rounded-full flex items-center justify-center hover:bg-stone-900 border border-stone-800 text-stone-300 transition-colors ${
+                isLiked
+                  ? "text-rose-500 border-rose-950/40 bg-rose-950/20"
+                  : "bg-stone-950/80"
+              }`}
+            >
+              <Heart
+                className={`w-4 h-4 ${isLiked ? "fill-current text-rose-500" : ""}`}
+              />
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
 
