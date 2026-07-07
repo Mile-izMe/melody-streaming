@@ -8,7 +8,7 @@ import {
 } from "@/libs/validations/playlist";
 import { useAuthStore } from "@/store/authStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ImageIcon } from "lucide-react";
+import { FileText, ImageIcon, Music } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -81,7 +81,8 @@ function CreateForm({ onClose }: Props) {
       </h3>
       <form onSubmit={handleSubmit(handleCreate)} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex flex-col space-y-1">
+          <div className="flex flex-col space-y-1 relative">
+            <Music className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-stone-500" />
             <input
               type="text"
               required
@@ -95,7 +96,8 @@ function CreateForm({ onClose }: Props) {
               </span>
             )}
           </div>
-          <div className="flex flex-col space-y-1">
+          <div className="flex flex-col space-y-1 relative">
+            <FileText className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-stone-500" />
             <input
               type="text"
               placeholder={cForm("description_placeholder")}

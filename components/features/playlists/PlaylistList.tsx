@@ -129,6 +129,8 @@ function PlaylistList() {
         )}
       </div>
 
+      {/* Right Detail of Selected Playlist */}
+
       {editingPlaylist && (
         <EditPlaylistModal
           playlist={editingPlaylist}
