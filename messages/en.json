@@ -161,12 +161,55 @@
       "submit": "Create now",
       "generic_error": "Something went wrong, please try again"
     },
-    "add_to_playlist_modal": {
-      "add_playlist": "Add to playlist",
-      "loading": "Loading playlist...",
-      "no_playlist": "You don't have any playlist",
-      "songs": "songs",
-      "added": "Added"
+    "edit_form": {
+      "title": "Edit Playlist",
+      "name_label": "PLAYLIST NAME",
+      "name_placeholder": "Enter playlist name...",
+      "description_label": "DESCRIPTION",
+      "description_placeholder": "Add a description...",
+      "cover_label": "COVER IMAGE (OPTIONAL)",
+      "cancel_button": "Cancel",
+      "save_button": "Save changes",
+      "saving_button": "Saving..."
+    },
+    "detail": {
+      "loading": "Loading playlist details...",
+      "error": "An error occurred while loading the playlist. Please try again!",
+      "badge": "PLAYLIST DETAILS",
+      "default_description": "Your special collection in Melody Stream.",
+      "created_at": "CREATED:",
+      "empty_songs": "There are no songs in this collection. Click on a song on the home page and select Add to Playlist in the player below!",
+      "play_song_title": "Play this song",
+      "remove_song_title": "Remove from this playlist",
+      "empty_state_title": "Click on a playlist collection on the left to view details",
+      "empty_state_subtitle": "Stored seamlessly on your browser"
+    },
+    "list": {
+      "loading": "Loading playlists...",
+      "error": "An error occurred while loading the list. Please try again!",
+      "choose_collection": "CHOOSE COLLECTION",
+      "empty_list": "No playlists yet. Add one using the button above!",
+      "songs_count": "songs",
+      "edit_tooltip": "Edit this playlist",
+      "delete_tooltip": "Delete this playlist"
+    }
+  },
+  "add_to_playlist_modal": {
+    "add_playlist": "Add to playlist",
+    "loading": "Loading playlist...",
+    "no_playlist": "You don't have any playlist",
+    "songs": "songs",
+    "added": "Added"
+  },
+  "homepage": {
+    "homeview": {
+      "music": "Music",
+      "suggested": "recommended music",
+      "loading": "Loading...",
+      "more": "More",
+      "end": "List end",
+      "lyric": "Lyric",
+      "lyricNotFound": "Lyric not found for this song."
     }
   }
 }

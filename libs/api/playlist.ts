@@ -58,7 +58,10 @@ export const playlistApi = {
     songId: string,
     token: string,
   ): Promise<{ message: string }> =>
-    privateApi(token).post(`/api/playlists/${playlistId}/songs`, { songId }),
+    privateApi(token).post(
+      `/api/playlists/${playlistId}/songs?songId=${songId}`,
+      null,
+    ),
 
   removeSongFromPlaylist: (
     playlistId: string,

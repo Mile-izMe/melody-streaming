@@ -161,12 +161,55 @@
       "submit": "Tạo ngay",
       "generic_error": "Đã có lỗi xảy ra, vui lòng thử lại"
     },
-    "add_to_playlist_modal": {
-      "add_playlist": "Thêm vào danh sách phát",
+    "edit_form": {
+      "title": "Chỉnh sửa danh sách phát",
+      "name_label": "TÊN DANH SÁCH",
+      "name_placeholder": "Nhập tên playlist...",
+      "description_label": "MÔ TẢ",
+      "description_placeholder": "Thêm mô tả...",
+      "cover_label": "ẢNH BÌA (TÙY CHỌN)",
+      "cancel_button": "Hủy",
+      "save_button": "Lưu thay đổi",
+      "saving_button": "Đang lưu..."
+    },
+    "detail": {
+      "loading": "Đang tải danh sách playlist...",
+      "error": "Đã có lỗi xảy ra khi tải danh sách. Vui lòng thử lại!",
+      "badge": "DANH SÁCH CHI TIẾT",
+      "default_description": "Tuyển tập đặc biệt của bạn trong Melody Stream.",
+      "created_at": "CREATED:",
+      "empty_songs": "Không có bài hát nào trong tuyển tập này. Nhấp chuột vào một bài hát ở trang chủ sau đó chọn Thêm vào Playlist ở trình nghe nhạc phía dưới!",
+      "play_song_title": "Phát bài này",
+      "remove_song_title": "Xóa khỏi danh sách này",
+      "empty_state_title": "Nhấp vào một tuyển tập danh sách phát ở bên trái để xem chi tiết",
+      "empty_state_subtitle": "Lưu trữ mượt mà trên trình duyệt của bạn"
+    },
+    "list": {
+      "loading": "Đang tải danh sách playlist...",
+      "error": "Đã có lỗi xảy ra khi tải danh sách. Vui lòng thử lại!",
+      "choose_collection": "CHỌN TUYỂN TẬP",
+      "empty_list": "Chưa có danh sách phát nào. Thêm một cái bằng nút phía trên!",
+      "songs_count": "bài hát",
+      "edit_tooltip": "Sửa playlist này",
+      "delete_tooltip": "Xóa playlist này"
+    }
+  },
+  "add_to_playlist_modal": {
+    "add_playlist": "Thêm vào danh sách phát",
+    "loading": "Đang tải danh sách...",
+    "no_playlist": "Bạn không có danh sách nào",
+    "songs": "bài hát",
+    "added": "Đã thêm"
+  },
+  "homepage": {
+    "homeview": {
+      "music": "Âm nhạc",
+      "suggested": "nhạc phẩm đề xuất",
       "loading": "Đang tải danh sách...",
-      "no_playlist": "Bạn không có danh sách nào",
-      "songs": "bài hát",
-      "added": "Đã thêm"
+      "more": "Xem thêm",
+      "end": "Hết danh sách",
+      "lyric": "Lyric",
+      "lyricNotFound": "Không tìm thấy lời ca khúc này."
     }
   }
 }

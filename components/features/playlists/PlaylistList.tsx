@@ -5,8 +5,11 @@ import { Playlist } from "@/types";
 import { ChevronRight, FolderHeart, Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
 import EditPlaylistModal from "./EditPlaylistModal";
+import PlaylistDetail from "./PlaylistDetail";
+import { useTranslations } from "next-intl";
 
 function PlaylistList() {
+  const t = useTranslations("playlists.list");
   const { accessToken } = useAuthStore();
   const [editingPlaylist, setEditingPlaylist] = useState<Playlist | null>(null);
   const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | null>(
@@ -33,18 +36,12 @@ function PlaylistList() {
   // --- RENDER STATES ---
   if (isLoading) {
     return (
-      <div className="text-sm text-stone-500 animate-pulse">
-        Đang tải danh sách playlist...
-      </div>
+      <div className="text-sm text-stone-500 animate-pulse">{t("loading")}</div>
     );
   }
 
   if (isError) {
-    return (
-      <div className="text-sm text-red-500">
-        Đã có lỗi xảy ra khi tải danh sách. Vui lòng thử lại!
-      </div>
-    );
+    return <div className="text-sm text-red-500">{t("error")}</div>;
   }
 
   return (
@@ -52,11 +49,11 @@ function PlaylistList() {
       {/* Left List of Playlists */}
       <div className="md:col-span-1 space-y-3">
         <span className="text-sm font-mono text-stone-500 tracking-wide">
-          CHỌN TUYỂN TẬP
+          {t("choose_collection")}
         </span>
         {!playlists || playlists.length === 0 ? (
           <div className="p-8 text-center bg-stone-900/20 border border-stone-850 rounded-xl text-stone-500 text-xs">
-            Chưa có danh sách phát nào. Thêm một cái bằng nút phía trên!
+            {t("empty_list")}
           </div>
         ) : (
           playlists.map((playlist) => {
@@ -91,7 +88,7 @@ function PlaylistList() {
                       {playlist.name}
                     </span>
                     <span className="text-[15px] text-stone-400 font-mono tracking-wide mt-0.5 truncate block">
-                      {playlist.songs.length} bài hát •{" "}
+                      {playlist.songCount} {t("songs_count")} •{" "}
                       {new Date(playlist.createdAt).toLocaleDateString("vi-VN")}
                     </span>
                   </div>
@@ -105,7 +102,7 @@ function PlaylistList() {
                       setEditingPlaylist(playlist);
                     }}
                     className="cursor-pointer p-1.5 rounded-full text-stone-600 hover:text-amber-400 opacity-0 group-hover:opacity-100 transition-all"
-                    title="Sửa playlist này"
+                    title={t("edit_tooltip")}
                   >
                     <Pencil className="w-3.5 h-3.5" />
                   </button>
@@ -117,7 +114,7 @@ function PlaylistList() {
                     }}
                     disabled={isDeleting}
                     className="cursor-pointer p-1.5 rounded-full text-stone-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all"
-                    title="Xóa playlist này"
+                    title={t("delete_tooltip")}
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -130,6 +127,7 @@ function PlaylistList() {
       </div>
 
       {/* Right Detail of Selected Playlist */}
+      <PlaylistDetail selectedPlaylist={selectedPlaylist} />
 
       {editingPlaylist && (
         <EditPlaylistModal

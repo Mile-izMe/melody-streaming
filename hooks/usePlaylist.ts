@@ -14,6 +14,17 @@ export const usePlaylists = (token: string) => {
 };
 
 // ==========================================
+// READ DETAIL
+// ==========================================
+export const usePlaylistDetail = (playlistId: string, token: string) => {
+  return useQuery({
+    queryKey: ["playlistDetail", playlistId],
+    queryFn: () => playlistApi.getDetail(playlistId, token),
+    enabled: !!playlistId && !!token,
+  });
+};
+
+// ==========================================
 // 2. CREATE NEW PLAYLIST
 // ==========================================
 export const useCreatePlaylist = () => {

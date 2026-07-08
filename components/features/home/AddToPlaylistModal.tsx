@@ -32,7 +32,7 @@ function AddToPlaylistModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center backdrop-blur-sm p-4">
       <div className="bg-stone-900 border border-stone-800 rounded-2xl w-full max-w-sm shadow-2xl relative flex flex-col max-h-[80vh]">
         {/* Header Modal */}
         <div className="p-5 border-b border-stone-800/50 flex items-center justify-between shrink-0">
@@ -68,7 +68,7 @@ function AddToPlaylistModal() {
                   key={playlist.id}
                   disabled={isAdding || isAlreadyInPlaylist}
                   onClick={() => handleAddToPlaylist(playlist.id)}
-                  className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-stone-800/50 border border-transparent hover:border-stone-700/50 transition-all group disabled:opacity-50 disabled:cursor-not-allowed text-left"
+                  className="cursor-pointer w-full flex items-center justify-between p-3 rounded-xl hover:bg-stone-800/50 border border-transparent hover:border-stone-700/50 transition-all group disabled:opacity-50 disabled:cursor-not-allowed text-left"
                 >
                   <div className="flex items-center space-x-3 overflow-hidden">
                     <div className="w-10 h-10 rounded-lg bg-stone-800 shrink-0 flex items-center justify-center overflow-hidden">

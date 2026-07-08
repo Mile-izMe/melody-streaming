@@ -27,6 +27,7 @@ export default function EditPlaylistModal({
   onSuccessEdit,
 }: EditPlaylistModalProps) {
   const cUpdatePlaylist = useTranslations("playlists.update_playlist");
+  const t = useTranslations("playlists.edit_form");
   const updateSchema = updatePlaylistSchema(cUpdatePlaylist);
   const { mutate: updatePlaylist, isPending: isUpdating } = useUpdatePlaylist();
 
@@ -39,7 +40,6 @@ export default function EditPlaylistModal({
     resolver: zodResolver(updateSchema),
   });
 
-  // Đảm bảo form luôn nhận data mới nhất nếu prop playlist thay đổi
   useEffect(() => {
     reset({
       name: playlist.name,
@@ -74,18 +74,18 @@ export default function EditPlaylistModal({
         </button>
 
         <h3 className="text-lg font-semibold text-stone-100 mb-6">
-          Chỉnh sửa danh sách phát
+          {t("title")}
         </h3>
 
         <form onSubmit={handleSubmit(onEditSubmit)} className="space-y-4">
           <div>
             <label className="block text-xs font-mono text-stone-400 mb-1.5">
-              TÊN DANH SÁCH
+              {t("name_label")}
             </label>
             <input
               {...register("name")}
               className="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-2.5 text-sm text-stone-200 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition-all"
-              placeholder="Nhập tên playlist..."
+              placeholder={t("name_placeholder")}
             />
             {errors.name && (
               <p className="text-red-400 text-xs mt-1">
@@ -96,7 +96,7 @@ export default function EditPlaylistModal({
 
           <div>
             <label className="block text-xs font-mono text-stone-400 mb-1.5">
-              MÔ TẢ
+              {t("description_label")}
             </label>
             <textarea
               {...register("description")}
@@ -107,7 +107,7 @@ export default function EditPlaylistModal({
 
           <div>
             <label className="block text-xs font-mono text-stone-400 mb-1.5">
-              ẢNH BÌA (TÙY CHỌN)
+              {t("cover_label")}
             </label>
             <input
               type="file"
@@ -123,14 +123,14 @@ export default function EditPlaylistModal({
               onClick={onClose}
               className="cursor-pointer px-4 py-2 text-sm text-stone-400 hover:text-stone-200 transition-colors"
             >
-              Hủy
+              {t("cancel_button")}
             </button>
             <button
               type="submit"
               disabled={isUpdating}
               className="cursor-pointer px-6 py-2 bg-amber-600 hover:bg-amber-500 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50"
             >
-              {isUpdating ? "Đang lưu..." : "Lưu thay đổi"}
+              {isUpdating ? t("saving_button") : t("save_button")}
             </button>
           </div>
         </form>

@@ -5,8 +5,10 @@ import { Languages } from "lucide-react";
 import "./index.css";
 import { useEffect, useMemo, useRef } from "react";
 import { parseLyrics } from "@/libs/common/parseLrc";
+import { useTranslations } from "next-intl";
 
 export default function LyricModal() {
+  const t = useTranslations("homepage.homeview");
   const { currentSong, currentTime } = usePlayerStore();
   const activeLyricRef = useRef<HTMLDivElement>(null);
 
@@ -94,7 +96,7 @@ export default function LyricModal() {
           <div className="flex items-center space-x-2 text-stone-300">
             <Languages className="w-4 h-4 text-amber-500 animate-pulse" />
             <span className="text-xs font-mono tracking-widest uppercase">
-              Lyrics
+              {t("lyric")}
             </span>
           </div>
         </div>
@@ -120,7 +122,7 @@ export default function LyricModal() {
             })
           ) : (
             <div className="text-center text-stone-500 text-sm py-12 font-sans italic">
-              Không tìm thấy lời ca khúc này.
+              {t("lyricNotFound")}
             </div>
           )}
         </div>

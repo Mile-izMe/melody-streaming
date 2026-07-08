@@ -7,12 +7,14 @@ import { Song } from "@/types";
 import { useEffect, useState } from "react";
 import SongCard from "./SongCard";
 import { ChevronDown, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export interface HomeViewProps {
   initialData: CursorPage<Song>;
 }
 
 export default function HomeView({ initialData }: HomeViewProps) {
+  const t = useTranslations("homepage.homeview");
   const { songs, fetchMore, hasMore, isLoading, hydrate } = useSongStore();
   const { playSong, currentSong, isPlaying } = usePlayerStore();
   const [expanded, setExpanded] = useState(false);
@@ -39,10 +41,10 @@ export default function HomeView({ initialData }: HomeViewProps) {
     <div className="space-y-4 mt-8">
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-semibold text-stone-100 tracking-tight">
-          Âm nhạc
+          {t("music")}
         </h3>
         <span className="text-sm text-stone-500 font-mono tracking-wide">
-          {songs.length} nhạc phẩm đề xuất
+          {songs.length} {t("suggested")}
         </span>
       </div>
 
@@ -70,14 +72,14 @@ export default function HomeView({ initialData }: HomeViewProps) {
             ) : (
               <ChevronDown className="w-3.5 h-3.5" />
             )}
-            {isLoading ? "Đang tải..." : "Xem thêm"}
+            {isLoading ? `${t("loading")}` : `${t("more")}`}
           </button>
         </div>
       )}
 
       {expanded && !hasMore && (
         <p className="text-center text-stone-600 text-sm py-2 font-mono">
-          ── Hết danh sách ──
+          ── {t("end")} ──
         </p>
       )}
     </div>
