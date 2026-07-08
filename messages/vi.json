@@ -160,6 +160,13 @@
       "cancel": "Hủy bỏ",
       "submit": "Tạo ngay",
       "generic_error": "Đã có lỗi xảy ra, vui lòng thử lại"
+    },
+    "add_to_playlist_modal": {
+      "add_playlist": "Thêm vào danh sách phát",
+      "loading": "Đang tải danh sách...",
+      "no_playlist": "Bạn không có danh sách nào",
+      "songs": "bài hát",
+      "added": "Đã thêm"
     }
   }
 }

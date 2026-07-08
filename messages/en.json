@@ -160,6 +160,13 @@
       "cancel": "Cancel",
       "submit": "Create now",
       "generic_error": "Something went wrong, please try again"
+    },
+    "add_to_playlist_modal": {
+      "add_playlist": "Add to playlist",
+      "loading": "Loading playlist...",
+      "no_playlist": "You don't have any playlist",
+      "songs": "songs",
+      "added": "Added"
     }
   }
 }

@@ -1,10 +1,11 @@
 "use client";
 
 import { formatTimeSong } from "@/libs/common/formatTimeSong";
+import { usePlaylistUIStore } from "@/store";
 import { useAuthStore } from "@/store/authStore";
 import { Song } from "@/types";
-import { Heart, Play } from "lucide-react";
-import { useState } from "react";
+import { ListPlus, Play } from "lucide-react";
+import AddToPlaylistModal from "./AddToPlaylistModal";
 
 interface SongCardProps {
   song: Song;
@@ -19,8 +20,8 @@ export default function SongCard({
   isPlaying,
   onPlay,
 }: SongCardProps) {
-  const [isLiked, setIsLiked] = useState(false);
-  const user = useAuthStore();
+  const { user } = useAuthStore();
+  const { openAddModal } = usePlaylistUIStore();
 
   return (
     <div
@@ -70,18 +71,15 @@ export default function SongCard({
           </button>
 
           {/* Like */}
-          {user.user?.isLoggedIn ? (
+          {user?.isLoggedIn ? (
             <button
-              onClick={() => setIsLiked(!isLiked)}
-              className={`cursor-pointer w-10 h-10 rounded-full flex items-center justify-center hover:bg-stone-900 border border-stone-800 text-stone-300 transition-colors ${
-                isLiked
-                  ? "text-rose-500 border-rose-950/40 bg-rose-950/20"
-                  : "bg-stone-950/80"
-              }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                openAddModal(song.id);
+              }}
+              className="cursor-pointer w-10 h-10 rounded-full flex items-center justify-center hover:bg-stone-900 border border-stone-800 text-stone-300 bg-stone-950/80 transition-colors"
             >
-              <Heart
-                className={`w-4 h-4 ${isLiked ? "fill-current text-rose-500" : ""}`}
-              />
+              <ListPlus className="w-4 h-4" />
             </button>
           ) : (
             <></>
@@ -114,6 +112,8 @@ export default function SongCard({
             <span>{formatTimeSong(song.duration || 0)}</span>
           )}
         </div>
+
+        <AddToPlaylistModal />
       </div>
     </div>
   );
