@@ -1,7 +1,6 @@
 "use client";
 
-import { ApiError } from "@/libs";
-import { playlistApi } from "@/libs/api/playlist";
+import { useCreatePlaylist } from "@/hooks";
 import {
   createPlaylistSchema,
   PlaylistInput,
@@ -13,6 +12,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 interface Props {
   onClose: () => void;
@@ -23,9 +23,9 @@ function CreateForm({ onClose }: Props) {
   const schema = createPlaylistSchema(cForm);
   const [thumbnailPreview, setThumbnailPreview] = useState("");
   const [thumbnailError, setThumbnailError] = useState("");
-  const [serverError, setServerError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const { accessToken } = useAuthStore();
+  const { mutate: createPlaylist } = useCreatePlaylist();
 
   const form = useForm<PlaylistInput>({
     resolver: zodResolver(schema),
@@ -49,24 +49,31 @@ function CreateForm({ onClose }: Props) {
       return;
     }
     setThumbnailError("");
-    setThumbnailPreview(URL.createObjectURL(file)); // preview local, không cần upload
+    setThumbnailPreview(URL.createObjectURL(file)); // preview local
   };
 
   // ── Submit Handler ──────────────────────
   const handleCreate = async (data: PlaylistInput) => {
     if (!accessToken) return;
 
-    setServerError("");
+    const toastId = toast.loading(cForm("loading"));
 
-    try {
-      await playlistApi.createPlaylist(data, accessToken);
-    } catch (error: unknown) {
-      if (error instanceof ApiError) {
-        setServerError(error.detail);
-      } else {
-        setServerError(cForm("generic_error"));
-      }
-    }
+    createPlaylist(
+      {
+        data,
+        token: accessToken,
+      },
+      {
+        onSuccess: () => {
+          toast.success(cForm("create_success"), { id: toastId });
+        },
+        onError: () => {
+          toast.error(cForm("create_error"), {
+            id: toastId,
+          });
+        },
+      },
+    );
   };
 
   const inputCls = (hasError: boolean) =>
@@ -177,10 +184,6 @@ function CreateForm({ onClose }: Props) {
           </button>
         </div>
       </form>
-
-      {serverError && (
-        <p className="text-xs text-red-400 text-center">{serverError}</p>
-      )}
     </div>
   );
 }

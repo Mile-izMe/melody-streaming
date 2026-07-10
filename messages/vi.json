@@ -147,6 +147,9 @@
       "cta": "Xác Thực Ngay Để Mở Khóa Thư Viện"
     },
     "create_form": {
+      "loading": "Đang tạo playlist...",
+      "create_success": "Tạo playlist thành công",
+      "create_error": "Không thể tạo playlist. Vui lòng thử lại sau!",
       "title": "Thiết kế Danh sách phát mới",
       "name_placeholder": "Tên playlist, ví dụ: Mưa Thiền Nhật Bản...",
       "description_placeholder": "Mô tả tinh tế bằng lời ca...",
@@ -174,6 +177,9 @@
     },
     "detail": {
       "loading": "Đang tải danh sách playlist...",
+      "loadingRemove": "Đang xóa bài hát...",
+      "removeSuccess": "Đã xóa khỏi danh sách",
+      "errorRemove": "Không thể xóa bài hát, thử lại sau!",
       "error": "Đã có lỗi xảy ra khi tải danh sách. Vui lòng thử lại!",
       "badge": "DANH SÁCH CHI TIẾT",
       "default_description": "Tuyển tập đặc biệt của bạn trong Melody Stream.",

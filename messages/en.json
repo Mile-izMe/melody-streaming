@@ -147,6 +147,9 @@
       "cta": "Authenticate Now to Unlock the Library"
     },
     "create_form": {
+      "loading": "Creating playlist...",
+      "create_success": "Create playlist successfully",
+      "create_error": "Unable to create playlist. Please try again later!",
       "title": "Design a New Playlist",
       "name_placeholder": "Playlist name, e.g. Japanese Zen Rain...",
       "description_placeholder": "A refined description in a few words...",
@@ -174,6 +177,9 @@
     },
     "detail": {
       "loading": "Loading playlist details...",
+      "loadingRemove": "Deleting song...",
+      "removeSuccess": "Delete song from playlist",
+      "errorRemove": "Can not delete song, try again later!",
       "error": "An error occurred while loading the playlist. Please try again!",
       "badge": "PLAYLIST DETAILS",
       "default_description": "Your special collection in Melody Stream.",

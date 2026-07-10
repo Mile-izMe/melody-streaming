@@ -1,8 +1,10 @@
 import { usePlaylistDetail, useRemoveSongFromPlaylist } from "@/hooks";
+import { formatTimeSong } from "@/libs/common";
 import { useAuthStore, usePlayerStore } from "@/store";
 import { Playlist } from "@/types";
 import { FolderHeart, Library, Play, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import toast from "react-hot-toast";
 
 export interface PlaylistDetailProps {
   selectedPlaylist: Playlist | null;
@@ -24,15 +26,16 @@ export default function PlaylistDetail({
 
   const handleRemoveSong = (playlistId: string, songId: string) => {
     if (!accessToken) return;
+    const toastId = toast.loading(t("loadingRemove"));
 
     removeSongFromPlaylist(
       { playlistId, songId, token: accessToken || "" },
       {
         onSuccess: () => {
-          console.log("Success");
+          toast.success(t("removeSuccess"), { id: toastId });
         },
         onError: () => {
-          console.log("Error");
+          toast.error(t("errorRemove"), { id: toastId });
         },
       },
     );
@@ -50,7 +53,7 @@ export default function PlaylistDetail({
   }
 
   return (
-    <div className="md:col-span-2">
+    <div className="md:col-span-2"> 
       {selectedPlaylist ? (
         <div className="bg-stone-900/10 border border-amber-950/20 rounded-2xl p-6 relative overflow-hidden backdrop-blur-md">
           <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
@@ -90,7 +93,7 @@ export default function PlaylistDetail({
                 {t("empty_songs")}
               </div>
             ) : (
-              listSongs?.songs?.map((song, i) => (
+              listSongs?.songs.map((song, i) => (
                 <div
                   key={song.id}
                   className="group flex items-center justify-between p-3 rounded-xl hover:bg-amber-950/10 border border-transparent hover:border-amber-950/30 transition-all duration-300"
@@ -119,7 +122,7 @@ export default function PlaylistDetail({
 
                   <div className="flex items-center space-x-3.5 pl-2">
                     <span className="text-stone-500 font-mono text-[10px]">
-                      {song.duration}
+                      {formatTimeSong(song.duration || 0)}
                     </span>
 
                     <button
