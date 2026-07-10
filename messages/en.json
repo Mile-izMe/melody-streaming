@@ -192,6 +192,8 @@
     },
     "list": {
       "loading": "Loading playlists...",
+      "delete_success": "Delete playlist successfully",
+      "delete_error": "Error when delete playlist. Please try again later!",
       "error": "An error occurred while loading the list. Please try again!",
       "choose_collection": "CHOOSE COLLECTION",
       "empty_list": "No playlists yet. Add one using the button above!",

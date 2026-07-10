@@ -7,6 +7,7 @@ import { useState } from "react";
 import EditPlaylistModal from "./EditPlaylistModal";
 import PlaylistDetail from "./PlaylistDetail";
 import { useTranslations } from "next-intl";
+import toast from "react-hot-toast";
 
 function PlaylistList() {
   const t = useTranslations("playlists.list");
@@ -26,7 +27,24 @@ function PlaylistList() {
 
   // --- HANDLERS ---
   const handleDelete = (playlistId: string) => {
-    deletePlaylist({ playlistId, token: accessToken || "" });
+    const toastId = toast.loading(t("loading"));
+
+    deletePlaylist(
+      {
+        playlistId,
+        token: accessToken || "",
+      },
+      {
+        onSuccess: () => {
+          toast.success(t("delete_success"), { id: toastId });
+        },
+        onError: () => {
+          toast.error(t("delete_error"), {
+            id: toastId,
+          });
+        },
+      },
+    );
 
     if (selectedPlaylist?.id === playlistId) {
       setSelectedPlaylist(null);

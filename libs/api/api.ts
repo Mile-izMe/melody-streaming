@@ -43,7 +43,12 @@ async function handleResponse(res: Response) {
       instance: body.instance ?? "",
     });
   }
-  return res.json();
+
+  if (res.status === 204) {
+    return null;
+  }
+
+  return res.json().catch(() => ({}));
 }
 
 // ─── RefreshToken Rotation ────────────────────────────────────

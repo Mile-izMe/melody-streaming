@@ -192,6 +192,8 @@
     },
     "list": {
       "loading": "Đang tải danh sách playlist...",
+      "delete_success": "Xóa thành công playlist",
+      "delete_error": "Đã có lỗi khi xóa playlist. Vui lòng thử lại sau!",
       "error": "Đã có lỗi xảy ra khi tải danh sách. Vui lòng thử lại!",
       "choose_collection": "CHỌN TUYỂN TẬP",
       "empty_list": "Chưa có danh sách phát nào. Thêm một cái bằng nút phía trên!",

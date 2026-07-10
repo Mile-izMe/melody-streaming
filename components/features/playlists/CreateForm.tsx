@@ -35,6 +35,7 @@ function CreateForm({ onClose }: Props) {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = form;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,6 +67,8 @@ function CreateForm({ onClose }: Props) {
       {
         onSuccess: () => {
           toast.success(cForm("create_success"), { id: toastId });
+          reset();
+          onClose();
         },
         onError: () => {
           toast.error(cForm("create_error"), {
