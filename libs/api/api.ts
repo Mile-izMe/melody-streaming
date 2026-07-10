@@ -47,12 +47,14 @@ async function handleResponse(res: Response) {
 }
 
 // ─── RefreshToken Rotation ────────────────────────────────────
+let refreshPromise: Promise<string | null> | null = null;
 async function fetchWithRefresh(
   endpoint: string,
   options: RequestInit,
   accessToken: string,
 ): Promise<Response> {
-  const res = await fetch(buildUrl(endpoint), {
+  // First time API
+  let res = await fetch(buildUrl(endpoint), {
     ...options,
     headers: {
       ...options.headers,
@@ -60,6 +62,7 @@ async function fetchWithRefresh(
     },
   });
 
+  // If token expires (401)
   if (res.status === 401) {
     const { refreshToken, setTokens, logout } = useAuthStore.getState();
 
@@ -68,32 +71,48 @@ async function fetchWithRefresh(
       throw new Error("Your session has expired. Please log in again.");
     }
 
+    if (!refreshPromise) {
+      refreshPromise = (async () => {
+        try {
+          const refreshRes = await fetch(buildUrl("/api/auth/refresh"), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ refreshToken }),
+          });
+
+          if (!refreshRes.ok) throw new Error("Refresh failed");
+
+          const data = await refreshRes.json();
+          const newAccessToken = data.tokens.accessToken ?? data.accessToken;
+          const newRefreshToken = data.tokens.refreshToken ?? data.refreshToken;
+
+          setTokens(newAccessToken, newRefreshToken);
+          await setTokenCookie(newAccessToken);
+
+          return newAccessToken;
+        } catch {
+          logout();
+          await clearTokenCookie();
+          throw new Error("Your session has expired. Please log in again.");
+        } finally {
+          refreshPromise = null;
+        }
+      })();
+    }
+
     try {
-      const refreshRes = await fetch(buildUrl("/api/auth/refresh"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ refreshToken }),
-      });
+      const newAccessToken = await refreshPromise;
 
-      if (!refreshRes.ok) throw new Error();
-
-      const data = await refreshRes.json();
-      const newAccessToken = data.tokens.accessToken ?? data.accessToken;
-      const newRefreshToken = data.tokens.refreshToken ?? data.refreshToken;
-
-      setTokens(newAccessToken, newRefreshToken);
-      setTokenCookie(newAccessToken);
-
-      return fetch(buildUrl(endpoint), {
-        ...options,
-        headers: {
-          ...options.headers,
-          Authorization: `Bearer ${newAccessToken}`,
-        },
-      });
-    } catch {
-      logout();
-      clearTokenCookie();
+      if (newAccessToken) {
+        res = await fetch(buildUrl(endpoint), {
+          ...options,
+          headers: {
+            ...options.headers,
+            Authorization: `Bearer ${newAccessToken}`,
+          },
+        });
+      }
+    } catch (error) {
       throw new Error("Your session has expired. Please log in again.");
     }
   }
