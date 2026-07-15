@@ -8,6 +8,7 @@ export interface PlaylistResponse {
   description?: string;
   thumbnailUrl?: string;
   songCount: number;
+  containSong: boolean;
   songs: SongResponse[];
   createdAt: Date;
 }
@@ -28,8 +29,16 @@ export const playlistApi = {
     return privateApi(token).upload("/api/playlists", formData);
   },
 
-  getUserPlaylists: (token: string): Promise<PlaylistResponse[]> =>
-    privateApi(token).get("/api/playlists"),
+  getUserPlaylists: (
+    token: string,
+    checkSongId?: string | null,
+  ): Promise<PlaylistResponse[]> => {
+    const url = checkSongId
+      ? `/api/playlists?checkSongId=${checkSongId}`
+      : "/api/playlists";
+
+    return privateApi(token).get(url);
+  },
 
   getDetail: (id: string, token: string): Promise<PlaylistResponse> =>
     privateApi(token).get(`/api/playlists/${id}`),

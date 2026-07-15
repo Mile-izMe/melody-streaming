@@ -207,7 +207,9 @@
     "loading": "Loading playlist...",
     "no_playlist": "You don't have any playlist",
     "songs": "songs",
-    "added": "Added"
+    "added": "Added",
+    "add_success_toast": "Add to playlist successfully.",
+    "add_error": "Add to playlist error. Try again later!"
   },
   "homepage": {
     "homeview": {

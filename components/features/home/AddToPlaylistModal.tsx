@@ -1,7 +1,9 @@
 import { useAddSongToPlaylist, usePlaylists } from "@/hooks";
 import { useAuthStore, usePlaylistUIStore } from "@/store";
+import { useQueryClient } from "@tanstack/react-query";
 import { Check, FolderHeart, Plus, X } from "lucide-react";
 import { useTranslations } from "next-intl";
+import toast from "react-hot-toast";
 
 function AddToPlaylistModal() {
   const t = useTranslations("add_to_playlist_modal");
@@ -9,7 +11,12 @@ function AddToPlaylistModal() {
   const { isAddModalOpen, selectedSongId, closeAddModal } =
     usePlaylistUIStore();
 
-  const { data: playlists, isLoading } = usePlaylists(accessToken || "");
+  const { data: playlists, isLoading } = usePlaylists(
+    accessToken || "",
+    selectedSongId,
+  );
+
+  const queryClient = useQueryClient();
 
   const { mutate: addSong, isPending: isAdding } = useAddSongToPlaylist();
 
@@ -18,14 +25,28 @@ function AddToPlaylistModal() {
   const handleAddToPlaylist = (playlistId: string) => {
     if (!selectedSongId || !accessToken) return;
 
+    const toastId = toast.loading(t("add_playlist"));
+
     addSong(
       { playlistId, songId: selectedSongId, token: accessToken },
       {
         onSuccess: () => {
-          closeAddModal();
+          queryClient.invalidateQueries({
+            queryKey: ["playlists", accessToken, selectedSongId],
+          });
+
+          toast.success(t("add_success_toast"), {
+            id: toastId,
+          });
+
+          setTimeout(() => {
+            closeAddModal();
+          }, 2000);
         },
         onError: () => {
-          console.error("Error");
+          toast.error(t("add_error"), {
+            id: toastId,
+          });
         },
       },
     );
@@ -41,7 +62,7 @@ function AddToPlaylistModal() {
           </h3>
           <button
             onClick={closeAddModal}
-            className="text-stone-500 hover:text-stone-300 transition-colors p-1"
+            className="text-stone-500 hover:text-stone-300 transition-colors p-1 cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -59,9 +80,7 @@ function AddToPlaylistModal() {
             </div>
           ) : (
             playlists.map((playlist) => {
-              const isAlreadyInPlaylist = playlist.songs?.some(
-                (song) => song.id === selectedSongId,
-              );
+              const isAlreadyInPlaylist = playlist.containSong;
 
               return (
                 <button
@@ -87,7 +106,7 @@ function AddToPlaylistModal() {
                         {playlist.name}
                       </span>
                       <span className="text-xs text-stone-500 block truncate mt-0.5">
-                        {playlist.songs?.length || 0} {t("songs")}
+                        {playlist.songCount || 0} {t("songs")}
                       </span>
                     </div>
                   </div>

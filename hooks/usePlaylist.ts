@@ -4,10 +4,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // ==========================================
 // 1. READ
 // ==========================================
-export const usePlaylists = (token: string) => {
+export const usePlaylists = (token: string, checkSongId?: string | null) => {
   return useQuery({
-    queryKey: ["playlists", token],
-    queryFn: () => playlistApi.getUserPlaylists(token),
+    queryKey: ["playlists", token, checkSongId],
+    queryFn: () => playlistApi.getUserPlaylists(token, checkSongId),
     enabled: !!token,
     staleTime: 5 * 60 * 1000, // Cache data in 5 mins
   });

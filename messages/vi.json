@@ -207,7 +207,9 @@
     "loading": "Đang tải danh sách...",
     "no_playlist": "Bạn không có danh sách nào",
     "songs": "bài hát",
-    "added": "Đã thêm"
+    "added": "Đã thêm",
+    "add_success_toast": "Thêm vào playlist thành công",
+    "add_error": "Thêm vào playlist thất bại. Thử lại sau!"
   },
   "homepage": {
     "homeview": {
