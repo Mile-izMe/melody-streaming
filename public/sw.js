@@ -1,4 +1,4 @@
-const CACHE_PREFIX = process.env.CACHE_PREFIX;
+const CACHE_PREFIX = "melody-stream-cache-v1";
 const CACHEABLE_PATTERNS = [
   /\/api\/songs\/stream\/[^/]+\/master\.m3u8/,
   /\/api\/songs\/stream\/[^/]+\/[^/]+\/playlist\.m3u8/,
