@@ -74,7 +74,7 @@ export default function PlaylistDetail({
                 <h2 className="text-2xl font-sans font-semibold text-stone-100 tracking-tight mt-1">
                   {selectedPlaylist.name}
                 </h2>
-                <p className="text-xs text-stone-400 font-sans mt-1">
+                <p className="text-md text-stone-400 font-sans mt-1">
                   {selectedPlaylist.description || t("default_description")}
                 </p>
               </div>
@@ -107,32 +107,32 @@ export default function PlaylistDetail({
                       src={song.thumbnailUrl}
                       alt={song.title}
                       referrerPolicy="no-referrer"
-                      className="w-10 h-10 rounded-lg object-cover border border-amber-950/20 shrink-0"
+                      className="w-15 h-15 rounded-lg object-cover border border-amber-950/20 shrink-0"
                     />
 
                     <div className="overflow-hidden text-left">
-                      <span className="text-xs font-semibold text-stone-200 block truncate group-hover:text-amber-400 transition-colors">
+                      <span className="text-sm font-semibold text-stone-200 block truncate group-hover:text-amber-400 transition-colors">
                         {song.title}
                       </span>
-                      <span className="text-[10px] text-stone-400 block truncate mt-0.5">
+                      <span className="text-[13px] text-stone-400 block truncate mt-0.5">
                         {song.artist}
                       </span>
                     </div>
                   </div>
 
                   <div className="flex items-center space-x-3.5 pl-2">
-                    <span className="text-stone-500 font-mono text-[10px]">
+                    <span className="text-stone-500 font-mono text-[13px]">
                       {formatTimeSong(song.duration || 0)}
                     </span>
 
                     <button
                       disabled={isDeleting}
                       onClick={() => playSong(song)}
-                      className="cursor-pointer w-7 h-7 rounded-full bg-amber-950/40 border border-amber-500/30 hover:bg-amber-500 hover:text-stone-950 flex items-center justify-center text-amber-400 transition-all"
+                      className="cursor-pointer w-10 h-10 rounded-full bg-amber-950/40 border border-amber-500/30 hover:bg-amber-500 hover:text-stone-950 flex items-center justify-center text-amber-400 transition-all"
                       title={t("play_song_title")}
                     >
-                      <Play className="w-3.5 h-3.5 fill-current" />
-                    </button>
+                      <Play className="w-5 h-5 fill-current" />
+                    </button>  
 
                     <button
                       onClick={() =>
@@ -141,7 +141,7 @@ export default function PlaylistDetail({
                       className="cursor-pointer p-1.5 rounded-full text-stone-600 hover:text-red-400 transition-colors"
                       title={t("remove_song_title")}
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      <Trash2 className="w-5 h-5" />
                     </button>
                   </div>
                 </div>

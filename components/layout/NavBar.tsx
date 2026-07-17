@@ -34,7 +34,7 @@ export default function NavBar() {
   const NAV_LINKS = [
     { href: "/", label: t("explore"), icon: Compass },
     { href: "/playlists", label: t("library"), icon: FolderHeart },
-    { href: "/history", label: t("recent"), icon: History },
+    // { href: "/history", label: t("recent"), icon: History },
   ];
 
   const isActive = (href: string) =>
